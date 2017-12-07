@@ -3,11 +3,13 @@ import {CommonModule} from '@angular/common';
 
 import {OrdersRoutingModule} from './orders-routing.module';
 import {OrdersComponent} from './orders.component';
+import {MatTableModule} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
-    OrdersRoutingModule
+    OrdersRoutingModule,
+    MatTableModule
   ],
   declarations: [OrdersComponent]
 })
