@@ -3,7 +3,10 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MatButtonModule, MatCheckboxModule, MatSidenavModule} from "@angular/material";
+import {
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatSidenavModule,
+  MatToolbarModule
+} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
@@ -14,7 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MatButtonModule, MatCheckboxModule, MatSidenavModule
+    MatButtonModule, MatCheckboxModule, MatMenuModule, MatSidenavModule, MatIconModule, MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
