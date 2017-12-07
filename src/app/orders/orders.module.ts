@@ -3,13 +3,17 @@ import {CommonModule} from '@angular/common';
 
 import {OrdersRoutingModule} from './orders-routing.module';
 import {OrdersComponent} from './orders.component';
-import {MatTableModule} from "@angular/material";
+import {MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule} from "@angular/material";
 
 @NgModule({
   imports: [
     CommonModule,
     OrdersRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [OrdersComponent]
 })

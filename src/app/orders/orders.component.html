@@ -1,28 +1,28 @@
-<div class="example-container mat-elevation-z8">
+<!--<div class="example-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+    &lt;!&ndash;- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" &ndash;&gt;
 
-    <!-- Position Column -->
+    &lt;!&ndash; Position Column &ndash;&gt;
     <ng-container matColumnDef="position">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+    &lt;!&ndash; Name Column &ndash;&gt;
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
+    &lt;!&ndash; Weight Column &ndash;&gt;
     <ng-container matColumnDef="weight">
       <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
     </ng-container>
 
-    <!-- Symbol Column -->
+    &lt;!&ndash; Symbol Column &ndash;&gt;
     <ng-container matColumnDef="symbol">
       <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
@@ -31,4 +31,46 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+</div>-->
+
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="progress">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="color">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
