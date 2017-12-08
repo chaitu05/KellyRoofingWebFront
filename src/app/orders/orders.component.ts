@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+/*import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
@@ -42,10 +42,10 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
   }
 
-  /**
+  /!**
    * Set the paginator and sort after the view init since this component will
    * be able to query its view for the initialized paginator and sort.
-   */
+   *!/
   ngAfterViewInit() {
 
     this.exampleDatabase = new ExampleHttpDao(this.http);
@@ -87,7 +87,7 @@ export class OrdersComponent implements OnInit {
 
 }
 
-/** Builds and returns a new User. */
+/!** Builds and returns a new User. *!/
 function createNewUser(id: number): UserData {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
@@ -102,7 +102,7 @@ function createNewUser(id: number): UserData {
 }
 
 
-/** Constants used to fill up our data base. */
+/!** Constants used to fill up our data base. *!/
 const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
   'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
 const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
@@ -128,7 +128,7 @@ export interface GithubIssue {
   title: string;
 }
 
-/** An example database that the data source uses to retrieve data for the table. */
+/!** An example database that the data source uses to retrieve data for the table. *!/
 export class ExampleHttpDao {
   constructor(private http: HttpClient) {
   }
@@ -140,4 +140,85 @@ export class ExampleHttpDao {
 
     return this.http.get<GithubApi>(requestUrl);
   }
+}*/
+
+
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {HttpClient} from "@angular/common/http";
+
+
+@Component({
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.scss']
+})
+export class OrdersComponent implements OnInit {
+
+  displayedColumns = ['id', 'name', 'progress', 'color'];
+  dataSource: MatTableDataSource<UserData>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  constructor(private http: HttpClient) {
+    // Create 100 users
+    const users: UserData[] = [];
+    for (let i = 1; i <= 100; i++) {
+      users.push(createNewUser(i));
+    }
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(users);
+  }
+
+  ngOnInit() {
+  }
+
+  /**
+   * Set the paginator and sort after the view init since this component will
+   * be able to query its view for the initialized paginator and sort.
+   */
+  ngAfterViewInit() {
+
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+}
+
+/** Builds and returns a new User. */
+function createNewUser(id: number): UserData {
+  const name =
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+
+  return {
+    id: id.toString(),
+    name: name,
+    progress: Math.round(Math.random() * 100).toString(),
+    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+  };
+}
+
+/** Constants used to fill up our data base. */
+const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
+  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
+const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
+  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
+  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
+
+export interface UserData {
+  id: string;
+  name: string;
+  progress: string;
+  color: string;
 }

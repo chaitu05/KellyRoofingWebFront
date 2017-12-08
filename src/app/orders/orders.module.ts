@@ -8,6 +8,7 @@ import {
   MatTableModule
 } from "@angular/material";
 import {HttpClientModule} from "@angular/common/http";
+import { OrdersService } from './orders.service';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatInputModule,
     MatProgressSpinnerModule
   ],
-  declarations: [OrdersComponent]
+  declarations: [OrdersComponent],
+  providers: [OrdersService]
 })
 export class OrdersModule {
 }
