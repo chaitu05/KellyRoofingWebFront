@@ -130,11 +130,6 @@
       <mat-cell *matCellDef="let row"> {{getOrderStatus(row)}}</mat-cell>
     </ng-container>
 
-    <!--<ng-container matColumnDef="color">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Picked/Shipped</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.}}</mat-cell>
-    </ng-container>-->
-
     <ng-container matColumnDef="note">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Note</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.note}}</mat-cell>
