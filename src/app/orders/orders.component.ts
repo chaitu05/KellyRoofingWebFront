@@ -145,7 +145,8 @@ export class ExampleHttpDao {
 
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {HttpClient} from "@angular/common/http";
+import {Order} from "./order";
+import {OrdersService} from "./orders.service";
 
 
 @Component({
@@ -155,22 +156,27 @@ import {HttpClient} from "@angular/common/http";
 })
 export class OrdersComponent implements OnInit {
 
-  displayedColumns = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns = ['purchaseOrderNum', 'salesOrderNum', 'jobName', 'materialType', 'orderType', 'orderDate',
+    'pickDeliverDt', 'city', 'note'];
+  dataSource: MatTableDataSource<Order>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private http: HttpClient) {
-    // Create 100 users
+  constructor(private olService: OrdersService) {
+    /*// Create 100 users
     const users: UserData[] = [];
     for (let i = 1; i <= 100; i++) {
       users.push(createNewUser(i));
     }
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(users);*/
+    this.olService.getOrders(null, new Date(), new Date()).then(ords => {
+      console.log('# orders in return: ' + ords.length);
+      this.dataSource = new MatTableDataSource(ords);
+    });
   }
 
   ngOnInit() {
@@ -195,7 +201,7 @@ export class OrdersComponent implements OnInit {
 
 }
 
-/** Builds and returns a new User. */
+/*/!** Builds and returns a new User. *!/
 function createNewUser(id: number): UserData {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
@@ -209,7 +215,7 @@ function createNewUser(id: number): UserData {
   };
 }
 
-/** Constants used to fill up our data base. */
+/!** Constants used to fill up our data base. *!/
 const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
   'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
 const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
@@ -221,4 +227,4 @@ export interface UserData {
   name: string;
   progress: string;
   color: string;
-}
+}*/
