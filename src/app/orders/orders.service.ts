@@ -27,7 +27,6 @@ export class OrdersService {
 
     let dt: Date = new Date();
     dt.setDate(new Date().getDate() + (Math.floor(Math.random() * (7 - 0 )) + 0));
-    console.log('dt: ' + dt);
     return dt;
   }
 

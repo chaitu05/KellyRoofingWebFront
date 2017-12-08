@@ -4,5 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  OrderPickedUp : "Picked up",
+  OrderDelivered : "Delivered",
+  OrderConfirmedb44day : "Confirmed 4 days prior",
+  OrderConfirmedb41day : "Confirmed 1 day prior",
+  OrderOrdered : "Ordered",
+  OrderNotOrdered : "Not-Ordered",
 };

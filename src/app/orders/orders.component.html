@@ -125,10 +125,10 @@
       <mat-cell *matCellDef="let row"> {{row.city}}</mat-cell>
     </ng-container>
 
-    <!--<ng-container matColumnDef="color">
+    <ng-container matColumnDef="orderStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Order Status</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.}}</mat-cell>
-    </ng-container>-->
+      <mat-cell *matCellDef="let row"> {{getOrderStatus(row)}}</mat-cell>
+    </ng-container>
 
     <!--<ng-container matColumnDef="color">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Picked/Shipped</mat-header-cell>
