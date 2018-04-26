@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
+import {NewOrderComponent} from "./orders/new-order.component";
+import {Order} from "./orders/order";
 
 @Component({
   selector: 'app-root',
@@ -9,4 +12,28 @@ export class AppComponent {
 
   title = 'app';
 
+  /**
+   * Constructor with needed dependencies
+   * @param {MatDialog} matDialog MatDialog service is used to open NewOrderComponent as a Dialog
+   */
+  constructor(private matDialog: MatDialog) {
+  }
+
+  /**
+   * Opens the New Order dialog for creation of a new order
+   */
+  openNewOrderDialog(): void {
+
+    let mdc: MatDialogConfig = new MatDialogConfig();
+    mdc.height = '400px';
+    mdc.width = '600px';
+    mdc.closeOnNavigation = true;
+    mdc.disableClose = true;
+    let o: Order = new Order();
+    o.city = "Dhone";
+    mdc.data = o;
+
+    let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
+
+  }
 }

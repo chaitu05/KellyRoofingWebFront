@@ -1,0 +1,12 @@
+.order-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-container > * {
+  width: 100%;
+}
+
+.kr-order-h2 {
+  text-align: center;
+}

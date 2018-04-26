@@ -3,15 +3,10 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatIconModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule
-} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NewOrderComponent} from "./orders/new-order.component";
+import {OrdersModule} from "./orders/orders.module";
+import {MaterialModule} from "./shared/material.module";
 
 @NgModule({
   declarations: [
@@ -20,11 +15,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MaterialModule,
     AppRoutingModule,
-    MatButtonModule, MatCheckboxModule, MatMenuModule, MatSidenavModule, MatIconModule, MatToolbarModule,
+    OrdersModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewOrderComponent],
 })
 export class AppModule {
 }

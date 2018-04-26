@@ -144,11 +144,12 @@ export class ExampleHttpDao {
 
 
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Order} from "./order";
 import {OrdersService} from "./orders.service";
 import {OrderType} from "./order-type";
 import {environment} from "../../environments/environment";
+import {NewOrderComponent} from "./new-order.component";
 
 
 @Component({
@@ -166,11 +167,28 @@ export class OrdersComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private olService: OrdersService) {
+  // TODO: delete matDialog service injection from the construction.
+  constructor(private olService: OrdersService, private matDialog: MatDialog) {
     this.olService.getOrders(null, new Date(), new Date()).then(ords => {
       console.log('# orders in return: ' + ords.length);
       this.dataSource = new MatTableDataSource(ords);
     });
+  }
+
+  // TODO: Delete this method out of this component.
+  openNewOrderDialog(): void {
+
+    let mdc: MatDialogConfig = new MatDialogConfig();
+    mdc.height = '400px';
+    mdc.width = '600px';
+    mdc.closeOnNavigation = true;
+    mdc.disableClose = true;
+    let o: Order = new Order();
+    o.city = "Dhone";
+    mdc.data = o;
+
+    let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
+
   }
 
   getOrderStatus(order: Order): string {
@@ -189,6 +207,8 @@ export class OrdersComponent implements OnInit {
   };
 
   ngOnInit() {
+    // TODO: remove the following line which creates order dialog.
+    this.openNewOrderDialog();
   }
 
   /**
