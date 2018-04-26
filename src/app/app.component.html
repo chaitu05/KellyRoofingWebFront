@@ -49,8 +49,11 @@
 </mat-toolbar>-->
 
 <mat-sidenav-container>
+
   <mat-toolbar color="primary">
-    <button mat-button>Orders</button>
+
+    <a mat-button [routerLink]="['/orders']">All Orders</a>
+    <a mat-button [routerLink]="['/orders']">New Order</a>
 
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
@@ -58,6 +61,7 @@
     <button mat-icon-button>
       <mat-icon>account_circle</mat-icon>
     </button>
+
     <!--<mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon> dialpad </mat-icon>

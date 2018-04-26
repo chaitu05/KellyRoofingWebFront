@@ -4,11 +4,16 @@ import {CommonModule} from '@angular/common';
 import {OrdersRoutingModule} from './orders-routing.module';
 import {OrdersComponent} from './orders.component';
 import {
-  MatFormFieldModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
   MatTableModule
 } from "@angular/material";
 import {HttpClientModule} from "@angular/common/http";
-import { OrdersService } from './orders.service';
+import {OrdersService} from './orders.service';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -20,7 +25,8 @@ import { OrdersService } from './orders.service';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   declarations: [OrdersComponent],
   providers: [OrdersService]
