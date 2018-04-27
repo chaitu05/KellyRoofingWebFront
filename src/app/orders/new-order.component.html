@@ -1,18 +1,37 @@
-<h2 mat-dialog-title>New Order</h2>
-<form #orderForm="ngForm" (ngSubmit)="save()" novalidate>
+<h2 mat-dialog-title class="kr-order-h2">New Order</h2>
+
+<form class="order-container" [formGroup]="orderForm" (ngSubmit)="save()" novalidate>
+
   <mat-dialog-content>
+
     <mat-form-field>
-      <input matInput type="number" placeholder="Purchase order number" required pattern="[0-9]{3}[0-9]*">
+      <input matInput formControlName="purchaseOrderNum" type="number" placeholder="Purchase order number"/>
+      <mat-error *ngIf="orderForm.get('purchaseOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
     </mat-form-field>
+
+    <!--<div>{{orderForm.valid}}</div>
+    <div>{{orderForm.value}}</div>
+    <div>{{orderForm.controls}}</div>
+    <div>{{orderForm.get('purchaseOrderNum').errors | json}}</div>
+    <div>{{orderForm.get('purchaseOrderNum').errors}}</div>
+    <div>{{orderForm.get('purchaseOrderNum').touched}}</div>
+    <div>{{orderForm.get('purchaseOrderNum').invalid}}</div>
+    <div>{{orderForm.get('purchaseOrderNum').dirty}}</div>-->
+
   </mat-dialog-content>
+
   <mat-dialog-actions>
-    <button mat-button color="primary" (click)="save()">
+
+    <button type="submit" mat-button color="accent" [disabled]="!orderForm.valid" (click)="save()">
       <mat-icon>save</mat-icon>
       Save
     </button>
+
     <button mat-button (click)="close()">
       <mat-icon>close</mat-icon>
       Close
     </button>
+
   </mat-dialog-actions>
+
 </form>

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {OrdersService} from "./orders.service";
 import {Order} from "./order";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-new-order',
@@ -11,12 +12,19 @@ import {Order} from "./order";
 export class NewOrderComponent implements OnInit {
 
   private order: Order = new Order();
+  orderForm: FormGroup;
 
-  constructor(private matDialogRef: MatDialogRef<NewOrderComponent>,
+  constructor(private matDialogRef: MatDialogRef<NewOrderComponent>, private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) order: Order,
               ordersService: OrdersService) {
+
     this.order = order;
     console.log(order.toString());
+
+    this.orderForm = this.fb.group({
+      purchaseOrderNum: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+    });
+
   }
 
   ngOnInit() {
@@ -26,8 +34,9 @@ export class NewOrderComponent implements OnInit {
     // TODO: Validate Order data
     // TODO: Save data to repo
 
-    // Close the dialog
-    this.matDialogRef.close();
+    // Close the dialog.
+    // TODO: send the created order.
+    this.matDialogRef.close(new Order());
     // TODO: Show Snackbar Message
 
   }

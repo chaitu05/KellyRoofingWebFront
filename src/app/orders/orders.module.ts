@@ -6,14 +6,14 @@ import {OrdersRoutingModule} from './orders-routing.module';
 import {OrdersComponent} from './orders.component';
 import {HttpClientModule} from "@angular/common/http";
 import {OrdersService} from './orders.service';
-import {FormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {NewOrderComponent} from './new-order.component';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     OrdersRoutingModule,
   ],
