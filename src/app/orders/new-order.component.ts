@@ -21,13 +21,14 @@ export class NewOrderComponent implements OnInit {
     this.order = order;
     console.log(order.toString());
 
-    this.orderForm = this.fb.group({
-      purchaseOrderNum: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
-    });
-
   }
 
   ngOnInit() {
+    this.orderForm = this.fb.group({
+      purchaseOrderNum: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+      pickupDeliveryDate: ['', [Validators.required]],
+
+    });
   }
 
   save(): void {
