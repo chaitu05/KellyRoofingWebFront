@@ -5,15 +5,15 @@
   <mat-dialog-content>
 
     <mat-form-field>
-      <input matInput formControlName="purchaseOrderNum" type="number" placeholder="Purchase order number"/>
-      <mat-error *ngIf="orderForm.get('purchaseOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
+      <input matInput formControlName="purchOrderNum" type="number" placeholder="Purchase order number"/>
+      <mat-error *ngIf="orderForm.get('purchOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput formControlName="pickupDeliveryDate" [matDatepicker]="picker" placeholder="Pickup/Delivery Date">
+      <input matInput formControlName="pickupDate" [matDatepicker]="picker" placeholder="Pickup/Delivery Date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="orderForm.get('pickupDeliveryDate').invalid">Please enter pickup/delivery date.</mat-error>
+      <mat-error *ngIf="orderForm.get('pickupDate').invalid">Please enter pickup/delivery date.</mat-error>
     </mat-form-field>
 
     <!--<div>{{orderForm.valid}}</div>
@@ -29,7 +29,7 @@
 
   <mat-dialog-actions>
 
-    <button type="submit" mat-button color="accent" [disabled]="!orderForm.valid" (click)="save()">
+    <button type="submit" mat-button color="accent" [disabled]="!orderForm.valid">
       <mat-icon>save</mat-icon>
       Save
     </button>

@@ -25,13 +25,16 @@ export class NewOrderComponent implements OnInit {
 
   ngOnInit() {
     this.orderForm = this.fb.group({
-      purchaseOrderNum: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
-      pickupDeliveryDate: ['', [Validators.required]],
+      purchOrderNum: ['', [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+      pickupDate: ['', [Validators.required]],
 
     });
   }
 
   save(): void {
+
+    console.log('in save: ' + JSON.stringify(this.orderForm.value));
+
     // TODO: Validate Order data
     // TODO: Save data to repo
 
