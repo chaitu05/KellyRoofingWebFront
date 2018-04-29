@@ -5,6 +5,8 @@ import {Order} from "./order";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../login/user.service";
 import {User} from "../model/user";
+import {MaterialType} from "./material-type";
+import {OrderType} from "./order-type";
 
 @Component({
   selector: 'app-new-order',
@@ -16,6 +18,8 @@ export class NewOrderComponent implements OnInit {
   private order: Order = new Order();
   orderForm: FormGroup;
   users: Set<User>;
+  materialTypeValues:string[] = Object.values(MaterialType);
+  orderTypeValues: string[] = Object.values((OrderType));
 
   constructor(private matDialogRef: MatDialogRef<NewOrderComponent>, private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) order: Order,
@@ -23,7 +27,13 @@ export class NewOrderComponent implements OnInit {
 
     this.order = order;
     this.order.userId = '10645c4a-cc25-11e7-acdc-96395d26a8d8';
-    console.log(order.toString());
+    // this.order.materialType = MaterialType.insulation;
+    console.log(order.toString()
+      + '\nMaterial type keys: ' + Object.keys(MaterialType)
+      + '\nMaterial type keys: ' + Object.keys(MaterialType)
+      + '\nMaterial type values: ' + Object.values(MaterialType)
+    );
+
 
   }
 
@@ -37,6 +47,11 @@ export class NewOrderComponent implements OnInit {
       pickupDate: [this.order.pickupDate, [Validators.required]],
       userId: [this.order.userId, [Validators.required]],
       jobName: [this.order.jobName, [Validators.required, Validators.minLength(3)]],
+      materialType: [this.order.materialType, [Validators.required]],
+      orderType: [this.order.orderType, [Validators.required]],
+      city: [this.order.city, [Validators.required, Validators.minLength(3)]],
+      isPickedOrShipped: [this.order.isPickedOrShipped, [Validators.required]],
+      note: [this.order.note, []],
 
     });
   }

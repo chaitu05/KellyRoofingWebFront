@@ -5,13 +5,15 @@
   <mat-dialog-content>
 
     <mat-form-field>
-      <input matInput formControlName="purchOrderNum" type="number" placeholder="Purchase order number *" />
-      <mat-error *ngIf="orderForm.get('purchOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
+      <input matInput formControlName="purchOrderNum" type="number" placeholder="Purchase order number *"/>
+      <mat-error *ngIf="orderForm.get('purchOrderNum').invalid">Please enter a number with at least 3 digits.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput formControlName="salesOrderNum" type="number" placeholder="Sales order number *"/>
-      <mat-error *ngIf="orderForm.get('salesOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
+      <mat-error *ngIf="orderForm.get('salesOrderNum').invalid">Please enter a number with at least 3 digits.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -27,12 +29,50 @@
           {{u.firstName + ' ' + u.lastName}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="orderForm.get('userId').invalid">Please select a contractor</mat-error>
+      <mat-error *ngIf="orderForm.get('userId').invalid">Please select a contractor.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput formControlName="jobName" type="text" placeholder="Job Name *" />
+      <mat-select formControlName="materialType" placeholder="Select Material Type *">
+        <mat-option *ngFor="let mtv of materialTypeValues" [value]="mtv">
+          {{mtv.charAt(0).toUpperCase() + mtv.slice(1)}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('materialType').invalid">Please select Material Type.</mat-error>
+    </mat-form-field>
+
+    <label class="radio-label">Order type *</label>
+    <mat-radio-group formControlName="orderType">
+      <mat-radio-button *ngFor="let otv of orderTypeValues" [value]="otv">
+        {{otv.charAt(0).toUpperCase() + otv.slice(1)}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <!--<section class="example-section">
+      <label class="example-margin">Align:</label>
+      <mat-radio-group >
+        <mat-radio-button class="example-margin" value="start">Start</mat-radio-button>
+        <mat-radio-button class="example-margin" value="end">End</mat-radio-button>
+      </mat-radio-group>
+    </section>-->
+
+
+    <mat-form-field>
+      <input matInput formControlName="jobName" type="text" placeholder="Job Name *"/>
       <mat-error *ngIf="orderForm.get('jobName').invalid">Please enter Job Name.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="city" type="text" placeholder="Enter city *"/>
+      <mat-error *ngIf="orderForm.get('city').invalid">Please enter a city with at least 3 letters.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="isPickedOrShipped">Picked or Delivered</mat-checkbox>
+
+    <mat-form-field>
+      <textarea matInput formControlName="note" placeholder="Notes" matTextareaAutosize matAutosizeMinRows="2"
+                matAutosizeMaxRows="4"></textarea>
     </mat-form-field>
 
     <!--<div>{{orderForm.valid}}</div>
