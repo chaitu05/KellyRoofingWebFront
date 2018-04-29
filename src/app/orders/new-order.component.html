@@ -30,6 +30,10 @@
       <mat-error *ngIf="orderForm.get('userId').invalid">Please select a contractor</mat-error>
     </mat-form-field>
 
+    <mat-form-field>
+      <input matInput formControlName="jobName" type="text" placeholder="Job Name *" />
+      <mat-error *ngIf="orderForm.get('jobName').invalid">Please enter Job Name.</mat-error>
+    </mat-form-field>
 
     <!--<div>{{orderForm.valid}}</div>
     <div>{{orderForm.value}}</div>
