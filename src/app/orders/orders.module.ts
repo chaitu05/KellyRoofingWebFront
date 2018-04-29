@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {OrdersService} from './orders.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NewOrderComponent} from './new-order.component';
+import {LoginModule} from "../login/login.module";
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {NewOrderComponent} from './new-order.component';
     ReactiveFormsModule,
     MaterialModule,
     OrdersRoutingModule,
+    LoginModule,
   ],
   declarations: [OrdersComponent, NewOrderComponent],
   providers: [OrdersService],

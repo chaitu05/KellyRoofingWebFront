@@ -7,7 +7,7 @@ export class Order {
 
   purchOrderNum: number;
   salesOrderNum: number;
-  userId: number;
+  userId: string;
   jobName: string;
   materialType: MaterialType; // (insulation, membrane, metal, Skylites)
   orderType: OrderType; // (Delivery or Pickup)
@@ -18,6 +18,7 @@ export class Order {
   orderConfirmations: OrderConfirmation[];
   isPickedOrShipped: boolean;
   note?: string;
+
   // orderStatus: string; // ordered, confirmed 4 days prior, confirmed 1 day prior, shipped
   // shippedDate: Date;
   // orderStatus:string;

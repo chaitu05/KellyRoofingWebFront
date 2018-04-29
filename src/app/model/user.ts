@@ -1,5 +1,3 @@
-
-
 export class User {
 
   uuid: string; // Universally unique ID
@@ -10,6 +8,18 @@ export class User {
   username: string;
   password: string;
   picUrl: string;
+
+  constructor(uuid: string, firstName: string, lastName: string,
+              licenseNum: number, dob: Date, username: string,
+              password: string, picUrl: string) {
+    this.uuid = uuid;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.dob = dob;
+    this.username = username;
+    this.password = password;
+    this.picUrl = picUrl;
+  }
 
   public toString = () => {
     return `User = (${

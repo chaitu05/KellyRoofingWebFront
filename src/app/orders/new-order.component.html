@@ -5,16 +5,31 @@
   <mat-dialog-content>
 
     <mat-form-field>
-      <input matInput formControlName="purchOrderNum" type="number" placeholder="Purchase order number"/>
+      <input matInput formControlName="purchOrderNum" type="number" placeholder="Purchase order number *" />
       <mat-error *ngIf="orderForm.get('purchOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput formControlName="pickupDate" [matDatepicker]="picker" placeholder="Pickup/Delivery Date">
+      <input matInput formControlName="salesOrderNum" type="number" placeholder="Sales order number *"/>
+      <mat-error *ngIf="orderForm.get('salesOrderNum').invalid">Please enter a number with at least 3 digits.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="pickupDate" [matDatepicker]="picker" placeholder="Pickup/Delivery Date *">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="orderForm.get('pickupDate').invalid">Please enter pickup/delivery date.</mat-error>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="userId" placeholder="Select Contractor">
+        <mat-option *ngFor="let u of users" [value]="u.uuid">
+          {{u.firstName + ' ' + u.lastName}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('userId').invalid">Please select a contractor</mat-error>
+    </mat-form-field>
+
 
     <!--<div>{{orderForm.valid}}</div>
     <div>{{orderForm.value}}</div>
