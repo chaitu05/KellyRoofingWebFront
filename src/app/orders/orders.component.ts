@@ -179,7 +179,7 @@ export class OrdersComponent implements OnInit {
   openNewOrderDialog(): void {
 
     let mdc: MatDialogConfig = new MatDialogConfig();
-    mdc.height = '700px';
+    mdc.height = '800px';
     mdc.width = '650px';
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;

@@ -25,7 +25,9 @@ export class AppComponent {
   openNewOrderDialog(): void {
 
     let mdc: MatDialogConfig = new MatDialogConfig();
-    mdc.height = '700px';
+    mdc.height = '800px';
+    // mdc.height = window.innerHeight + 'px';
+    // console.log('$$$$$$$$$$$$$$$$ height: ' + mdc.height);
     mdc.width = '650px';
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;
