@@ -27,11 +27,12 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 @include angular-material-theme($dark-theme);*/
 
 
-$candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
-$candy-app-warn:    mat-palette($mat-red);
-$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
-@include angular-material-theme($candy-app-theme);
+//$kr-app-primary: mat-palette($mat-indigo);
+$kr-app-primary: mat-palette($mat-light-blue);
+$kr-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$kr-app-warn:    mat-palette($mat-red);
+$kr-app-theme: mat-light-theme($kr-app-primary, $kr-app-accent, $kr-app-warn);
+@include angular-material-theme($kr-app-theme);
 
 .mat-form-field {
   font-size: 14px;

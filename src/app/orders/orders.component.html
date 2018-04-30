@@ -112,12 +112,12 @@
 
     <ng-container matColumnDef="orderDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Order Date</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.orderDate | date:'MMM d, y, h:mm a'}}</mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.orderDate | date:'d MMM yy, h:mm a'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="pickDeliverDt">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Pick/Deliver Dt</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.pickupDate | date:'MMM d, y, h:mm a'}}</mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.pickupDate | date:'d MMM yy, h:mm a'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="city">
@@ -140,7 +140,8 @@
     </mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[8, 15, 25, 50]"></mat-paginator>
+  <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>-->
 
 </div>
 

@@ -22,3 +22,13 @@
 .mat-cell {
   margin: 0px 4px 0px 0px;
 }
+
+
+mat-row:nth-child(even){
+  background-color: lighten(lightblue, 10%);
+  //background-color: mat-color($primary, lighter);
+}
+
+/*mat-row:nth-child(odd){
+  background-color:black;
+}*/
