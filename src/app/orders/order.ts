@@ -15,7 +15,7 @@ export class Order {
   pickupDate: Date;
   city: string;
   orderPlaced: boolean;
-  orderConfirmations: OrderConfirmation[];
+  orderConfirmations: OrderConfirmation[] = [];
   isPickedOrShipped: boolean;
   note?: string;
 
@@ -40,7 +40,7 @@ export class Order {
   public toString = () => {
     return `Order = (${
     "\nPurchase order number = " + this.purchOrderNum
-    + "\nLicense # = " + this.userId
+    + "\nUserID = " + this.userId
     + "\nJob name = " + this.jobName
     + "\nMaterial type = " + this.materialType
     + "\nOrder type = " + this.orderType
@@ -50,7 +50,7 @@ export class Order {
     + "\nCity = " + this.city
     + "\nOrder Placed = " + this.orderPlaced
     + "\nOrder Confirmations = " + this.orderConfirmations
-    + "\nOrder Shipped = " + this.isPickedOrShipped
+    + "\nOrder Completed = " + this.isPickedOrShipped
     + "\nNote = " + this.note
       })`
   }

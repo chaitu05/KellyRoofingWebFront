@@ -59,13 +59,13 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-checkbox formControlName="isPickedOrShipped">Picked or Delivered</mat-checkbox>
+    <mat-checkbox formControlName="isPickedOrShipped">Completed</mat-checkbox>
 
     <div class="new-order-confirmations-div">
       <label class="checkbox-label">Order confirmed prior to: </label>
-      <mat-checkbox>4 days</mat-checkbox>
-      <mat-checkbox>2 days</mat-checkbox>
-      <mat-checkbox>1 day</mat-checkbox>
+      <mat-checkbox formControlName="orderConfirmation4DaysPrior">4 days</mat-checkbox>
+      <mat-checkbox formControlName="orderConfirmation2DaysPrior">2 days</mat-checkbox>
+      <mat-checkbox formControlName="orderConfirmation1DayPrior">1 day</mat-checkbox>
     </div>
 
     <mat-form-field class="new-order-notes">
