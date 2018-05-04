@@ -87,7 +87,7 @@
 
     <ng-container matColumnDef="purchaseOrderNum">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Ord#</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.purchOrderNum}}</mat-cell>
+      <mat-cell *matCellDef="let row"> <a mat-button (click)="openNewOrderDialog(row)">{{row.purchOrderNum}} <mat-icon>mode_edit</mat-icon></a> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="salesOrderNum">

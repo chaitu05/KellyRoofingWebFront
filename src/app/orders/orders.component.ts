@@ -167,23 +167,24 @@ export class OrdersComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  // TODO: delete matDialog service injection from the construction.
   constructor(private olService: OrdersService, private matDialog: MatDialog) {
+
     this.olService.getOrders(null, new Date(), new Date()).then(ords => {
       console.log('# orders in return: ' + ords.length);
       this.dataSource = new MatTableDataSource(ords);
     });
+
   }
 
-  // TODO: Delete this method out of this component.
-  openNewOrderDialog(): void {
+  openNewOrderDialog(o: Order): void {
 
+    // TODO: Move dialog configuration out of here into a generic place.
     let mdc: MatDialogConfig = new MatDialogConfig();
     mdc.width = '550px';
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;
-    let o: Order = new Order();
-    o.city = "Dhone";
+    // let o: Order = new Order();
+    // o.city = "Dhone";
     mdc.data = o;
 
     let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
@@ -206,8 +207,6 @@ export class OrdersComponent implements OnInit {
   };
 
   ngOnInit() {
-    // TODO: remove the following line which creates order dialog.
-    this.openNewOrderDialog();
   }
 
   /**
