@@ -23,6 +23,15 @@ export class OrdersService {
 
   }
 
+  /**
+   * Saves the order to backend.
+   * @param {Order} order
+   * @returns {Order}
+   */
+  saveOrder(order: Order): Order {
+    return order;
+  }
+
   private getRandomDate(): Date {
 
     let dt: Date = new Date();

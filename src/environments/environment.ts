@@ -11,4 +11,8 @@ export const environment = {
   OrderConfirmedb41day : "Confirmed 1 day prior",
   OrderOrdered : "Ordered",
   OrderNotOrdered : "Not-Ordered",
+  backendServerName: "localhost",
+  backendServerPort: "8080",
+  addOrderUrl : "order/addOrder",
+  authHeaderName : "Kr-Authorization",
 };

@@ -68,7 +68,8 @@ export class NewOrderComponent implements OnInit {
 
     console.log('in save: ' + JSON.stringify(this.orderForm.value));
 
-    // TODO: Validate Order data
+    // TODO: Validate Order data. Might not be needed.
+    this.validateOrderData();
 
     // Merge updated values and initial order to create changed order.
     let modifiedOrder: Order = Object.assign({}, this.order, this.orderForm.value);
@@ -155,4 +156,7 @@ export class NewOrderComponent implements OnInit {
   }
 
 
+  private validateOrderData() {
+
+  }
 }
