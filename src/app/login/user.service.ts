@@ -13,14 +13,37 @@ export class UserService {
     if(UserService.users.size > 0)
       return UserService.users;
 
-    UserService.users.add(new User('10645c4a-cc25-11e7-acdc-96395d26a8d8', 'Michael', 'Jordan',
+    UserService.users.add(this.getTemporaryUser('10645c4a-cc25-11e7-acdc-96395d26a8d8', 'Michael', 'Jordan',
+      9483336, new Date(1976, 10, 10), 'mjordan', '', ''));
+    UserService.users.add(this.getTemporaryUser('36ce3c3e-cc25-11e7-acdc-96395d26a8d8', 'Lebron', 'James',
+      9487026, new Date(1976, 10, 15), 'ljames', '', ''));
+    UserService.users.add(this.getTemporaryUser('77888298-cc25-11e7-acdc-96395d26a8d8', 'Trisha', 'Yearwood',
+      111111, new Date(1976, 10, 20), 'tyearwood', '', ''));
+    /*UserService.users.add(new User('10645c4a-cc25-11e7-acdc-96395d26a8d8', 'Michael', 'Jordan',
       9483336, new Date(1976, 10, 10), 'mjordan', '', ''));
     UserService.users.add(new User('36ce3c3e-cc25-11e7-acdc-96395d26a8d8', 'Lebron', 'James',
       9487026, new Date(1976, 10, 15), 'ljames', '', ''));
     UserService.users.add(new User('77888298-cc25-11e7-acdc-96395d26a8d8', 'Trisha', 'Yearwood',
-      111111, new Date(1976, 10, 20), 'tyearwood', '', ''));
+      111111, new Date(1976, 10, 20), 'tyearwood', '', ''));*/
 
     return UserService.users;
+
+  }
+
+  private getTemporaryUser(guid:string, firstName:string, lastName:string, licenseNum: number, dob: Date, username: string,
+              password: string, picUrl: string): User {
+
+    let u = new User();
+
+    u.guid = guid;
+    u.firstName = firstName;
+    u.lastName = lastName;
+    u.dob = dob;
+    u.username = username;
+    u.password = password;
+    u.picUrl = picUrl;
+
+    return u;
 
   }
 

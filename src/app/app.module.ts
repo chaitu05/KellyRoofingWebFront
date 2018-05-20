@@ -7,6 +7,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NewOrderComponent} from "./orders/new-order.component";
 import {OrdersModule} from "./orders/orders.module";
 import {MaterialModule} from "./shared/material.module";
+import {LoginModule} from "./login/login.module";
+import {LoginDialogComponent} from "./login/login-dialog.component";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {TokenPutInterceptorService} from "./token-put-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -15,13 +19,21 @@ import {MaterialModule} from "./shared/material.module";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MaterialModule,
     AppRoutingModule,
-    OrdersModule
+    OrdersModule,
+    LoginModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenPutInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [NewOrderComponent],
+  entryComponents: [NewOrderComponent, LoginDialogComponent],
 })
 export class AppModule {
 }

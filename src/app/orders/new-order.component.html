@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="kr-order-h2">New Order</h2>
+<h2 mat-dialog-title class="kr-header-h2">New Order</h2>
 
 <form class="order-container" [formGroup]="orderForm" (ngSubmit)="save()" novalidate>
 
@@ -25,7 +25,7 @@
 
     <mat-form-field>
       <mat-select formControlName="userId" placeholder="Select Contractor *">
-        <mat-option *ngFor="let u of users" [value]="u.uuid">
+        <mat-option *ngFor="let u of users" [value]="u.guid">
           {{u.firstName + ' ' + u.lastName}}
         </mat-option>
       </mat-select>

@@ -142,7 +142,6 @@ export class ExampleHttpDao {
   }
 }*/
 
-
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Order} from "./order";
@@ -169,10 +168,10 @@ export class OrdersComponent implements OnInit {
 
   constructor(private olService: OrdersService, private matDialog: MatDialog) {
 
-    this.olService.getOrders(null, new Date(), new Date()).then(ords => {
+    /*this.olService.getOrders(null, new Date(), new Date()).then(ords => {
       console.log('# orders in return: ' + ords.length);
       this.dataSource = new MatTableDataSource(ords);
-    });
+    });*/
 
   }
 
@@ -180,7 +179,7 @@ export class OrdersComponent implements OnInit {
 
     // TODO: Move dialog configuration out of here into a generic place.
     let mdc: MatDialogConfig = new MatDialogConfig();
-    mdc.width = '550px';
+    // mdc.width = '550px';
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;
     // let o: Order = new Order();
@@ -207,6 +206,10 @@ export class OrdersComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.olService.getOrders(null, new Date(), new Date()).then(ords => {
+      console.log('# orders in return: ' + ords.length);
+      this.dataSource = new MatTableDataSource(ords);
+    });
   }
 
   /**

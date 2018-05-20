@@ -1,6 +1,6 @@
 export class User {
 
-  uuid: string; // Universally unique ID
+  guid: string; // Universally unique ID
   firstName: string;
   lastName: string;
   licenseNum: number;
@@ -9,21 +9,11 @@ export class User {
   password: string;
   picUrl: string;
 
-  constructor(uuid: string, firstName: string, lastName: string,
-              licenseNum: number, dob: Date, username: string,
-              password: string, picUrl: string) {
-    this.uuid = uuid;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.dob = dob;
-    this.username = username;
-    this.password = password;
-    this.picUrl = picUrl;
-  }
+  constructor() {}
 
   public toString = () => {
     return `User = (${
-    "\nUUID = " + this.uuid
+    "\nUUID = " + this.guid
     + "\nUser FirstName = " + this.firstName
     + "\nLastName # = " + this.lastName
     + "\nLicense num = " + this.licenseNum

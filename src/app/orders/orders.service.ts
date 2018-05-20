@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Order} from "./order";
 import {OrderType} from "./order-type";
 import {MaterialType} from "./material-type";
 import {User} from "../model/user";
+import {Utilz} from "../utilz";
+import {environment} from "../../environments/environment";
+import {tap} from "rxjs/internal/operators";
 
 @Injectable()
 export class OrdersService {
@@ -12,14 +15,43 @@ export class OrdersService {
 
   public orders: Array<Order> = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private httpClient: HttpClient) {
   }
 
-  getOrders(user: User, startTime: Date, endTime: Date): Promise<Order[]> {
+  // getOrders(user: User, startTime: Date, endTime: Date): Promise<Order[]> {
+  getOrders(user: User, startTime: Date, endTime: Date) {
 
-    this.dummyOrderInitialize();
-    console.log('service orders: ' + this.orders.length);
-    return Promise.resolve(this.orders);
+    // this.dummyOrderInitialize();
+    // configure httpOptions with headers and params.
+
+    let params: HttpParams = new HttpParams();
+    params.set('from', '12/12/2017');
+    params.set('to', '12/12/2017');
+    params.set('id', 'akjsdhfjhadsfakljsdhfklajsdflkajsd');
+
+    let httpOptions = Object.assign({}, Utilz.httpOptions);
+    httpOptions["params"] = params;
+    console.log('http options: ' + httpOptions);
+
+    return this.httpClient.get<Order[]>(Utilz.getUrl(environment.backendApiAccessProtocol,
+      environment.backendServerName, environment.backendServerPort,
+      Array.of(environment.backendOrderApiUrl, environment.backendOrderApiGetOrders)),
+      httpOptions).toPromise()
+      .then(os => {
+
+        console.log('service orders: ' + this.orders.length);
+        return Promise.resolve(os);
+
+      })
+      .catch(reason => {
+
+        console.error('An error occurred while getting orders: from: ' + startTime + '\nto: '
+          + endTime + '\nuser: ' + user.toString(), reason);
+        return Promise.reject(reason.message || reason);
+
+      });
+
+    // return Promise.resolve(this.orders);
 
   }
 
@@ -622,5 +654,7 @@ export class OrdersService {
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
     });
   }
+
+
 
 }
