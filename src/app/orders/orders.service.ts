@@ -25,9 +25,9 @@ export class OrdersService {
     // configure httpOptions with headers and params.
 
     let params: HttpParams = new HttpParams();
-    params.set('from', '12/12/2017');
-    params.set('to', '12/12/2017');
-    params.set('id', 'akjsdhfjhadsfakljsdhfklajsdflkajsd');
+    params = params.set('from', '12/12/2017');
+    params = params.set('to', '12/12/2017');
+    params = params.set('id', 'akjsdhfjhadsfakljsdhfklajsdflkajsd');
 
     let httpOptions = Object.assign({}, Utilz.httpOptions);
     httpOptions["params"] = params;

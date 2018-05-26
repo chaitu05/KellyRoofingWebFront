@@ -142,7 +142,7 @@ export class ExampleHttpDao {
   }
 }*/
 
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Order} from "./order";
 import {OrdersService} from "./orders.service";
@@ -156,7 +156,7 @@ import {NewOrderComponent} from "./new-order.component";
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['purchaseOrderNum', 'salesOrderNum', 'jobName', 'materialType', 'orderType', 'orderDate',
     'pickDeliverDt', 'city', 'orderStatus', 'note'];
@@ -206,10 +206,6 @@ export class OrdersComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.olService.getOrders(null, new Date(), new Date()).then(ords => {
-      console.log('# orders in return: ' + ords.length);
-      this.dataSource = new MatTableDataSource(ords);
-    });
   }
 
   /**
@@ -218,8 +214,12 @@ export class OrdersComponent implements OnInit {
    */
   ngAfterViewInit() {
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.olService.getOrders(null, new Date(), new Date()).then(ords => {
+      console.log('# orders in return: ' + ords.length);
+      this.dataSource = new MatTableDataSource(ords);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
 
   }
 
