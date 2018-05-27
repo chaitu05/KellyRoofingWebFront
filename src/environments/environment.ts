@@ -24,6 +24,7 @@ export const environment = {
 
   backendLoginApiUrl: "login",
   backendLoginApiSignIn: "signin",
+  backendLoginApiGetAllUsers: "getAllUsers",
 
   backendOrderApiUrl: "order",
   backendOrderApiAddOrder: "addOrder",

@@ -44,9 +44,27 @@ export class NewOrderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.users = this.userService.getUsers();
+    this.userService.getAllUsers().then(users => {
+      this.users = users;
+      this.orderForm = this.fb.group({
+        purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+        salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+        pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
+        userId: [this.order.userId, [Validators.required]],
+        jobName: [this.order.jobName, [Validators.required, Validators.minLength(3)]],
+        materialType: [this.order.materialType, [Validators.required]],
+        orderType: [this.order.orderType, [Validators.required]],
+        city: [this.order.city, [Validators.required, Validators.minLength(3)]],
+        isPickedOrShipped: [this.order.isPickedOrShipped, []],
+        note: [this.order.note, []],
+        orderConfirmation4DaysPrior: [this.confirmation4DaysPrior, []],
+        orderConfirmation2DaysPrior: [this.confirmation2DaysPrior, []],
+        orderConfirmation1DayPrior: [this.confirmation1DayPrior, []],
 
-    this.orderForm = this.fb.group({
+      });
+    });
+
+    /*this.orderForm = this.fb.group({
       purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
       salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
       pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
@@ -61,7 +79,7 @@ export class NewOrderComponent implements OnInit {
       orderConfirmation2DaysPrior: [this.confirmation2DaysPrior, []],
       orderConfirmation1DayPrior: [this.confirmation1DayPrior, []],
 
-    });
+    });*/
   }
 
   save(): void {

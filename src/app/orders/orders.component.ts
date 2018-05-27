@@ -149,6 +149,8 @@ import {OrdersService} from "./orders.service";
 import {OrderType} from "./order-type";
 import {environment} from "../../environments/environment";
 import {NewOrderComponent} from "./new-order.component";
+import {UserService} from "../login/user.service";
+import {User} from "../model/user";
 
 
 @Component({
@@ -161,12 +163,16 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   displayedColumns = ['purchaseOrderNum', 'salesOrderNum', 'jobName', 'materialType', 'orderType', 'orderDate',
     'pickDeliverDt', 'city', 'orderStatus', 'note'];
   dataSource: MatTableDataSource<Order>;
+  users: Set<User>;
+  userMap: Map = new Map();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private olService: OrdersService, private matDialog: MatDialog) {
+  constructor(private olService: OrdersService,
+              private uService: UserService,
+              private matDialog: MatDialog) {
   }
 
   openNewOrderDialog(o: Order): void {
@@ -208,12 +214,23 @@ export class OrdersComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
 
-    this.olService.getAllOrders().then(ords => {
-      console.log('# orders in return: ' + ords.length);
-      this.dataSource = new MatTableDataSource(ords);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.uService.getAllUsers().then(users => {
+
+      this.users = users;
+
+      this.users.forEach(u => this.userMap.set(u.guid, u));
+
+      this.olService.getAllOrders().then(ords => {
+
+        console.log('# orders in return: ' + ords.length);
+        this.dataSource = new MatTableDataSource(ords);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
+      });
+
     });
+
     /*this.olService.getOrders(null, new Date(), new Date()).then(ords => {
       console.log('# orders in return: ' + ords.length);
       this.dataSource = new MatTableDataSource(ords);
