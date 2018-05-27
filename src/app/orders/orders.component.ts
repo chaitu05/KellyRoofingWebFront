@@ -160,11 +160,11 @@ import {User} from "../model/user";
 })
 export class OrdersComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['purchaseOrderNum', 'salesOrderNum', 'jobName', 'materialType', 'orderType', 'orderDate',
+  displayedColumns = ['purchaseOrderNum', 'salesOrderNum', 'jobName', 'materialType', 'orderType', 'Contractor',
     'pickDeliverDt', 'city', 'orderStatus', 'note'];
   dataSource: MatTableDataSource<Order>;
   users: Set<User>;
-  userMap: Map = new Map();
+  userMap: Map = new Map<string, User>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -237,6 +237,14 @@ export class OrdersComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });*/
+
+  }
+
+  getContractorName(userGuid: string): string {
+
+    let u: User = this.userMap.get(userGuid) as User;
+
+    return u.firstName + " " + u.lastName;
 
   }
 
