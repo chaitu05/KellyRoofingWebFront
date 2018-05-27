@@ -30,6 +30,7 @@ export const environment = {
   backendOrderApiUpdateOrder: "updateOrder",
   backendOrderApiGetOrders: "getOrders",
   backendOrderApiGetAllOrders: "getAllOrders",
+  backendOrderApiGetAllOrdersDateRange: "getAllOrdersDateRange",
   backendOrderApiUpdatePickDeliverDate: "updatePickDeliverDate",
 
 };

@@ -167,12 +167,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
 
   constructor(private olService: OrdersService, private matDialog: MatDialog) {
-
-    /*this.olService.getOrders(null, new Date(), new Date()).then(ords => {
-      console.log('# orders in return: ' + ords.length);
-      this.dataSource = new MatTableDataSource(ords);
-    });*/
-
   }
 
   openNewOrderDialog(o: Order): void {
@@ -214,12 +208,18 @@ export class OrdersComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
 
-    this.olService.getOrders(null, new Date(), new Date()).then(ords => {
+    this.olService.getAllOrders().then(ords => {
       console.log('# orders in return: ' + ords.length);
       this.dataSource = new MatTableDataSource(ords);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+    /*this.olService.getOrders(null, new Date(), new Date()).then(ords => {
+      console.log('# orders in return: ' + ords.length);
+      this.dataSource = new MatTableDataSource(ords);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });*/
 
   }
 

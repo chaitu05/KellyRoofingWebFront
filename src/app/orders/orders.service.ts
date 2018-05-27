@@ -19,23 +19,23 @@ export class OrdersService {
   }
 
   // getOrders(user: User, startTime: Date, endTime: Date): Promise<Order[]> {
-  getOrders(user: User, startTime: Date, endTime: Date) {
+  getAllOrders() {
 
     // this.dummyOrderInitialize();
-    // configure httpOptions with headers and params.
 
+    // configure httpOptions with headers and params.
+    let httpOptions = Object.assign({}, Utilz.httpOptions);
+
+    /* // Adding Parameters
     let params: HttpParams = new HttpParams();
     params = params.set('from', '12/12/2017');
     params = params.set('to', '12/12/2017');
-    params = params.set('id', 'akjsdhfjhadsfakljsdhfklajsdflkajsd');
-
-    let httpOptions = Object.assign({}, Utilz.httpOptions);
     httpOptions["params"] = params;
-    console.log('http options: ' + httpOptions);
+    console.log('http options: ' + httpOptions);*/
 
     return this.httpClient.get<Order[]>(Utilz.getUrl(environment.backendApiAccessProtocol,
       environment.backendServerName, environment.backendServerPort,
-      Array.of(environment.backendOrderApiUrl, environment.backendOrderApiGetOrders)),
+      Array.of(environment.backendOrderApiUrl, environment.backendOrderApiGetAllOrders)),
       httpOptions).toPromise()
       .then(os => {
 
@@ -45,8 +45,7 @@ export class OrdersService {
       })
       .catch(reason => {
 
-        console.error('An error occurred while getting orders: from: ' + startTime + '\nto: '
-          + endTime + '\nuser: ' + user.toString(), reason);
+        console.error('An error occurred while getting orders : ', reason);
         return Promise.reject(reason.message || reason);
 
       });
