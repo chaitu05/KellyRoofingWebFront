@@ -49,7 +49,7 @@ export class NewOrderComponent implements OnInit {
     this.orderForm = this.fb.group({
       purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
       salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
-      pickupDate: [this.order.pickupDate, [Validators.required]],
+      pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
       userId: [this.order.userId, [Validators.required]],
       jobName: [this.order.jobName, [Validators.required, Validators.minLength(3)]],
       materialType: [this.order.materialType, [Validators.required]],

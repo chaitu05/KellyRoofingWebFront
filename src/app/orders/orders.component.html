@@ -117,8 +117,8 @@
 
     <ng-container matColumnDef="pickDeliverDt">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Pick/Deliver Dt</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.pickupDate | date:'d MMM yy'}}</mat-cell>
-      <!--<mat-cell *matCellDef="let row"> {{row.pickupDate | date:'d MMM yy, h:mm a'}}</mat-cell>-->
+      <mat-cell *matCellDef="let row"> {{row.pickupOrDeliverDate | date:'d MMM yy'}}</mat-cell>
+      <!--<mat-cell *matCellDef="let row"> {{row.pickupOrDeliverDate | date:'d MMM yy, h:mm a'}}</mat-cell>-->
     </ng-container>
 
     <ng-container matColumnDef="city">

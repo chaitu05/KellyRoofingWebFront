@@ -12,7 +12,7 @@ export class Order {
   materialType: MaterialType; // (insulation, membrane, metal, Skylites)
   orderType: OrderType; // (Delivery or Pickup)
   orderDate: Date;
-  pickupDate: Date;
+  pickupOrDeliverDate: Date;
   city: string;
   orderPlaced: boolean;
   orderConfirmations: OrderConfirmation[] = [];
@@ -46,7 +46,7 @@ export class Order {
     + "\nOrder type = " + this.orderType
     + "\nSales Order Number = " + this.salesOrderNum
     + "\nOrder date = " + this.orderDate
-    + "\nPickup date = " + this.pickupDate
+    + "\nPickup or Deliver date = " + this.pickupOrDeliverDate
     + "\nCity = " + this.city
     + "\nOrder Placed = " + this.orderPlaced
     + "\nOrder Confirmations = " + this.orderConfirmations
