@@ -12,14 +12,14 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllUsers() {
+  getAllUsers():Promise<Set<User>> {
 
     let httpOptions = Object.assign({}, Utilz.httpOptions);
 
     if (UserService.users.size > 0)
       return Promise.resolve(UserService.users);
 
-    return this.httpClient.get<User[]>(Utilz.getUrl(environment.backendApiAccessProtocol,
+    return this.httpClient.get<Set<User>>(Utilz.getUrl(environment.backendApiAccessProtocol,
       environment.backendServerName, environment.backendServerPort,
       Array.of(environment.backendLoginApiUrl, environment.backendLoginApiGetAllUsers)),
       httpOptions).toPromise()

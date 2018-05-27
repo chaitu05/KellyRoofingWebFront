@@ -161,10 +161,10 @@ import {User} from "../model/user";
 export class OrdersComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['purchaseOrderNum', 'salesOrderNum', 'jobName', 'materialType', 'orderType', 'Contractor',
-    'pickDeliverDt', 'city', 'orderStatus', 'note'];
+    'pickDeliverDt', 'addrState', 'orderStatus', 'note'];
   dataSource: MatTableDataSource<Order>;
   users: Set<User>;
-  userMap: Map = new Map<string, User>();
+  userMap: Map<string, User> = new Map<string, User>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

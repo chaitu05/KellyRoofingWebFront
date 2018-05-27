@@ -50,8 +50,6 @@ export class OrdersService {
 
       });
 
-    // return Promise.resolve(this.orders);
-
   }
 
   /**
@@ -66,14 +64,14 @@ export class OrdersService {
   private getRandomDate(): Date {
 
     let dt: Date = new Date();
-    dt.setDate(new Date().getDate() + (Math.floor(Math.random() * (7 - 0 )) + 0));
+    dt.setDate(new Date().getDate() + (Math.floor(Math.random() * (7 - 0)) + 0));
     return dt;
   }
 
   private dummyOrderInitialize() {
 
 
-    this.orders.push({
+    /*this.orders.push({
       purchOrderNum: 12345, salesOrderNum: 2789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
       jobName: 'Wal-mart', materialType: MaterialType.insulation, orderType: OrderType.Pickup,
       orderDate: new Date(),
@@ -651,9 +649,8 @@ export class OrdersService {
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
-    });
+    });*/
   }
-
 
 
 }

@@ -14,6 +14,8 @@ export class Order {
   orderDate: Date;
   pickupOrDeliverDate: Date;
   city: string;
+  addressLine: string;
+  addrState: string;
   orderPlaced: boolean;
   orderConfirmations: OrderConfirmation[] = [];
   isPickedOrShipped: boolean;
