@@ -186,6 +186,13 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     mdc.data = o;
 
     let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
+    newOrderDialogRef.afterClosed().toPromise()
+      .then(ord => {
+        console.log('Saved order: ' + ord);
+      })
+      .catch(err => {
+        console.log('Error while creating new order: ' + err);
+      });
 
   }
 

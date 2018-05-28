@@ -53,6 +53,7 @@ export class NewOrderComponent implements OnInit {
     this.orderForm = this.fb.group({
       purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
       salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+      orderDate: [this.order.orderDate, [Validators.required]],
       pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
       userId: [this.order.userId, [Validators.required]],
       jobName: [this.order.jobName, [Validators.required, Validators.minLength(3)]],
@@ -81,17 +82,21 @@ export class NewOrderComponent implements OnInit {
 
     // Merge updated values and initial order to create changed order.
     let modifiedOrder: Order = Object.assign({}, this.order, this.orderForm.value);
-    console.log('Changed order: ' + modifiedOrder);
 
     // Update order confirmations.
     this.updateOrderConfirmations(modifiedOrder);
-    console.log(modifiedOrder.toString());
+    console.log('Modified order: ' + JSON.stringify(modifiedOrder));
 
     // TODO: Save data to repo
+    this.ordersService.saveOrder(modifiedOrder)
+      .then(o => {
+        this.matDialogRef.close(o);
+      })
+      .catch(err => {
+        // TODO: send error back to dialog opener
+        this.matDialogRef.close(new Order());
+      });
 
-    // Close the dialog.
-    // TODO: send the created order.
-    this.matDialogRef.close(new Order());
     // TODO: Show Snackbar Message
 
   }

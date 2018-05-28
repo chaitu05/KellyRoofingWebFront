@@ -17,6 +17,13 @@
     </mat-form-field>
 
     <mat-form-field>
+      <input matInput formControlName="orderDate" [matDatepicker]="odPicker" placeholder="Order Date *">
+      <mat-datepicker-toggle matSuffix [for]="odPicker"></mat-datepicker-toggle>
+      <mat-datepicker #odPicker></mat-datepicker>
+      <mat-error *ngIf="orderForm.get('orderDate').invalid">Please enter Order date.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput formControlName="pickupOrDeliverDate" [matDatepicker]="picker" placeholder="Pickup/Delivery Date *">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>

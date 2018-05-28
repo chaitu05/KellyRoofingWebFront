@@ -57,8 +57,24 @@ export class OrdersService {
    * @param {Order} order
    * @returns {Order}
    */
-  saveOrder(order: Order): Order {
-    return order;
+  saveOrder(order: Order): Promise<Order> {
+
+    return this.httpClient.post<Order>(Utilz.getUrl(environment.backendApiAccessProtocol,
+      environment.backendServerName, environment.backendServerPort,
+      Array.of(environment.backendOrderApiUrl, environment.backendOrderApiAddOrder)),
+      order, Utilz.httpOptions).toPromise()
+      .then(order => {
+
+        return Promise.resolve(order);
+
+      })
+      .catch(reason => {
+
+        console.error('An error occurred while saving order : ' + order, reason);
+        return Promise.reject(reason.message || reason);
+
+      });
+
   }
 
   private getRandomDate(): Date {
