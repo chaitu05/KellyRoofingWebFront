@@ -8,6 +8,7 @@ import {User} from "../model/user";
 import {MaterialType} from "./material-type";
 import {OrderType} from "./order-type";
 import {OrderConfirmation} from "./order-confirmation";
+import {Utilz} from "../utilz";
 
 @Component({
   selector: 'app-new-order',
@@ -21,6 +22,7 @@ export class NewOrderComponent implements OnInit {
   users: Set<User>;
   materialTypeValues: string[] = Object.values(MaterialType);
   orderTypeValues: string[] = Object.values((OrderType));
+  usStates: string[] = Utilz.usStateVals;
   confirmation4DaysPrior: boolean = false;
   confirmation2DaysPrior: boolean = false;
   confirmation1DayPrior: boolean = false;
@@ -30,7 +32,7 @@ export class NewOrderComponent implements OnInit {
               private ordersService: OrdersService, private userService: UserService) {
 
     this.order = order;
-    this.order.userId = '10645c4a-cc25-11e7-acdc-96395d26a8d8';
+    // this.order.userId = '10645c4a-cc25-11e7-acdc-96395d26a8d8';
     // this.order.materialType = MaterialType.insulation;
     this.initOrderConfirmations(order);
     console.log(order.toString()
@@ -46,25 +48,9 @@ export class NewOrderComponent implements OnInit {
 
     this.userService.getAllUsers().then(users => {
       this.users = users;
-      this.orderForm = this.fb.group({
-        purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
-        salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
-        pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
-        userId: [this.order.userId, [Validators.required]],
-        jobName: [this.order.jobName, [Validators.required, Validators.minLength(3)]],
-        materialType: [this.order.materialType, [Validators.required]],
-        orderType: [this.order.orderType, [Validators.required]],
-        city: [this.order.city, [Validators.required, Validators.minLength(3)]],
-        isPickedOrShipped: [this.order.isPickedOrShipped, []],
-        note: [this.order.note, []],
-        orderConfirmation4DaysPrior: [this.confirmation4DaysPrior, []],
-        orderConfirmation2DaysPrior: [this.confirmation2DaysPrior, []],
-        orderConfirmation1DayPrior: [this.confirmation1DayPrior, []],
-
-      });
     });
 
-    /*this.orderForm = this.fb.group({
+    this.orderForm = this.fb.group({
       purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
       salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
       pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
@@ -73,13 +59,17 @@ export class NewOrderComponent implements OnInit {
       materialType: [this.order.materialType, [Validators.required]],
       orderType: [this.order.orderType, [Validators.required]],
       city: [this.order.city, [Validators.required, Validators.minLength(3)]],
+      productType: [this.order.productType, []],
+      addressLine: [this.order.addressLine, []],
+      addrState: [this.order.addrState, [Validators.required]],
       isPickedOrShipped: [this.order.isPickedOrShipped, []],
       note: [this.order.note, []],
       orderConfirmation4DaysPrior: [this.confirmation4DaysPrior, []],
       orderConfirmation2DaysPrior: [this.confirmation2DaysPrior, []],
       orderConfirmation1DayPrior: [this.confirmation1DayPrior, []],
 
-    });*/
+    });
+
   }
 
   save(): void {

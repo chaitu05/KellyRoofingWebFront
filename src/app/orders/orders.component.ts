@@ -179,7 +179,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
     // TODO: Move dialog configuration out of here into a generic place.
     let mdc: MatDialogConfig = new MatDialogConfig();
-    // mdc.width = '550px';
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;
     // let o: Order = new Order();
@@ -230,13 +229,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
       });
 
     });
-
-    /*this.olService.getOrders(null, new Date(), new Date()).then(ords => {
-      console.log('# orders in return: ' + ords.length);
-      this.dataSource = new MatTableDataSource(ords);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });*/
 
   }
 

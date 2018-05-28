@@ -41,6 +41,10 @@
       <mat-error *ngIf="orderForm.get('materialType').invalid">Please select Material Type.</mat-error>
     </mat-form-field>
 
+    <mat-form-field>
+      <input matInput formControlName="productType" type="text" placeholder="Product Type"/>
+    </mat-form-field>
+
     <label class="radio-label">Order type *</label>
     <mat-radio-group formControlName="orderType">
       <mat-radio-button *ngFor="let otv of orderTypeValues" [value]="otv">
@@ -54,9 +58,22 @@
     </mat-form-field>
 
     <mat-form-field>
+      <input matInput formControlName="addressLine" type="text" placeholder="Address Line"/>
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput formControlName="city" type="text" placeholder="Enter city *"/>
       <mat-error *ngIf="orderForm.get('city').invalid">Please enter a city with at least 3 letters.
       </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="addrState" placeholder="Select State *">
+        <mat-option *ngFor="let uss of usStates" [value]="uss">
+          {{uss}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="orderForm.get('addrState').invalid">Please select State.</mat-error>
     </mat-form-field>
 
     <mat-checkbox formControlName="isPickedOrShipped">Completed</mat-checkbox>

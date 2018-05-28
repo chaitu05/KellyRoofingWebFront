@@ -10,6 +10,7 @@ export class Order {
   userId: string;
   jobName: string;
   materialType: MaterialType; // (insulation, membrane, metal, Skylites)
+  productType: string;
   orderType: OrderType; // (Delivery or Pickup)
   orderDate: Date;
   pickupOrDeliverDate: Date;

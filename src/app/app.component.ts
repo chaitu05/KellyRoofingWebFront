@@ -26,11 +26,11 @@ export class AppComponent {
 
     let mdc: MatDialogConfig = new MatDialogConfig();
     // mdc.height = window.innerHeight + 'px';
-    mdc.width = '550px';
+    // mdc.width = '550px';
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;
     let o: Order = new Order();
-    o.city = "Dhone";
+    // o.city = "Dhone";
     mdc.data = o;
 
     let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);

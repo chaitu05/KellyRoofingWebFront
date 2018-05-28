@@ -1,4 +1,5 @@
 import {HttpHeaders, HttpParams} from "@angular/common/http";
+import {UsStates} from "./orders/us-states";
 
 export class Utilz {
 
@@ -22,4 +23,5 @@ export class Utilz {
     })
   };
 
+  static usStateVals: string[] = Object.values((UsStates));
 }
