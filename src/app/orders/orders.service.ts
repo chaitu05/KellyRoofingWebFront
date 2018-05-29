@@ -21,8 +21,6 @@ export class OrdersService {
   // getOrders(user: User, startTime: Date, endTime: Date): Promise<Order[]> {
   getAllOrders() {
 
-    // this.dummyOrderInitialize();
-
     // configure httpOptions with headers and params.
     let httpOptions = Object.assign({}, Utilz.httpOptions);
 
@@ -92,7 +90,7 @@ export class OrdersService {
       jobName: 'Wal-mart', materialType: MaterialType.insulation, orderType: OrderType.Pickup,
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: true,
-      orderConfirmations: [], isPickedOrShipped: false
+      orderConfirmations: [], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 12346, salesOrderNum: 3789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -100,7 +98,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: true,
       orderConfirmations: [{confirmed: true, priorDays: 1, confirmedAt: new Date()},
-        {confirmed: true, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: true, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
       , note: 'Some items are not available. Screws, Nails are not in the confirmed order yet.'
     });
     this.orders.push({
@@ -116,28 +114,28 @@ export class OrdersService {
       orderPlaced: false,
       orderConfirmations: [{confirmed: true, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: true
+      pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 12348, salesOrderNum: 5789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
       jobName: 'Target', materialType: MaterialType.metal, orderType: OrderType.Pickup, orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: true,
       orderConfirmations: [{confirmed: true, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: true, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: true, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 12349, salesOrderNum: 6789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
       jobName: 'Fred mayers', materialType: MaterialType.membrane, orderType: OrderType.Pickup, orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: true,
       orderConfirmations: [{confirmed: true, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 22345, salesOrderNum: 7789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
       jobName: 'Smiths', materialType: MaterialType.metal, orderType: OrderType.Delivery, orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: true,
       orderConfirmations: [{confirmed: true, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: true, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: true, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 22345,
@@ -152,7 +150,7 @@ export class OrdersService {
       orderPlaced: true,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: false
+      pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 22345,
@@ -167,7 +165,7 @@ export class OrdersService {
       orderPlaced: true,
       orderConfirmations: [{confirmed: true, priorDays: 4, confirmedAt: new Date()},
         {confirmed: true, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: true
+      pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 22345,
@@ -182,14 +180,14 @@ export class OrdersService {
       orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: true
+      pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 32345, salesOrderNum: 100789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
       jobName: 'Sams club', materialType: MaterialType.metal, orderType: OrderType.Pickup, orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 42345,
@@ -204,14 +202,14 @@ export class OrdersService {
       orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: true
+      pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
       jobName: 'Opsgear', materialType: MaterialType.skylites, orderType: OrderType.Pickup, orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 62345,
@@ -226,7 +224,7 @@ export class OrdersService {
       orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: true
+      pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345,
@@ -241,7 +239,7 @@ export class OrdersService {
       orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: false
+      pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345,
@@ -256,7 +254,7 @@ export class OrdersService {
       orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
         {confirmed: false, priorDays: 1, confirmedAt: new Date()}],
-      isPickedOrShipped: true
+      pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -264,7 +262,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -272,7 +270,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -280,7 +278,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -288,7 +286,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -296,7 +294,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -304,7 +302,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -312,7 +310,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -320,7 +318,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -328,7 +326,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -336,7 +334,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -344,7 +342,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -352,7 +350,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -360,7 +358,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -368,7 +366,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -376,7 +374,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -384,7 +382,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -392,7 +390,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -400,7 +398,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -408,7 +406,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -416,7 +414,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -424,7 +422,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -432,7 +430,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -440,7 +438,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -448,7 +446,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -456,7 +454,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -464,7 +462,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -472,7 +470,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -480,7 +478,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -488,7 +486,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -496,7 +494,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -504,7 +502,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -512,7 +510,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -520,7 +518,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -528,7 +526,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -536,7 +534,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -544,7 +542,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -552,7 +550,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -560,7 +558,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -568,7 +566,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -576,7 +574,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -584,7 +582,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -592,7 +590,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -600,7 +598,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -608,7 +606,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -616,7 +614,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -624,7 +622,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -632,7 +630,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -640,7 +638,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -648,7 +646,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -656,7 +654,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: true
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: true
     });
     this.orders.push({
       purchOrderNum: 52345, salesOrderNum: 120789, userId: '10645c4a-cc25-11e7-acdc-96395d26a8d8',
@@ -664,7 +662,7 @@ export class OrdersService {
       orderDate: new Date(),
       pickupOrDeliverDate: this.getRandomDate(), city: 'Salt lake', orderPlaced: false,
       orderConfirmations: [{confirmed: false, priorDays: 4, confirmedAt: new Date()},
-        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], isPickedOrShipped: false
+        {confirmed: false, priorDays: 1, confirmedAt: new Date()}], pickedOrDelivered: false
     });*/
   }
 

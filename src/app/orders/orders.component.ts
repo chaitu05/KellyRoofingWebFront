@@ -143,7 +143,7 @@ export class ExampleHttpDao {
 }*/
 
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Order} from "./order";
 import {OrdersService} from "./orders.service";
 import {OrderType} from "./order-type";
@@ -164,7 +164,9 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     'pickDeliverDt', 'addrState', 'orderStatus', 'note'];
   dataSource: MatTableDataSource<Order>;
   users: Set<User>;
+  orders: Set<Order>;
   userMap: Map<string, User> = new Map<string, User>();
+  // newOrderDialogRef: MatDialogRef;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -175,38 +177,51 @@ export class OrdersComponent implements OnInit, AfterViewInit {
               private matDialog: MatDialog) {
   }
 
-  openNewOrderDialog(o: Order): void {
+  openEditOrderDialog(o: Order): void {
 
     // TODO: Move dialog configuration out of here into a generic place.
     let mdc: MatDialogConfig = new MatDialogConfig();
     mdc.closeOnNavigation = true;
     mdc.disableClose = true;
-    // let o: Order = new Order();
-    // o.city = "Dhone";
+    o.orderDate = new Date(o.orderDate);
+    o.pickupOrDeliverDate = new Date(o.pickupOrDeliverDate);
     mdc.data = o;
 
-    let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
-    newOrderDialogRef.afterClosed().toPromise()
-      .then(ord => {
+    const newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
+
+    newOrderDialogRef.afterClosed().subscribe(
+      ord => {
         console.log('Saved order: ' + ord);
-      })
-      .catch(err => {
-        console.log('Error while creating new order: ' + err);
-      });
+        // find order in this.orders and replace it with saved order.
+      },
+      err => {
+        console.error('Error while creating/editing an order: ' + o, err);
+      }
+    );
+
 
   }
 
   getOrderStatus(order: Order): string {
 
-    if (order.isPickedOrShipped) {
+    if (order.pickedOrDelivered) {
       return order.orderType === OrderType.Pickup ? environment.OrderPickedUp : environment.OrderDelivered;
     }
     else if (!order.orderPlaced)
       return environment.OrderNotOrdered;
-    else if (order.orderConfirmations.length == 0 && order.orderPlaced)
+    else if (order.orderConfirmations.length === 0 && order.orderPlaced)
       return environment.OrderOrdered;
 
-    return "Confirmed " + order.orderConfirmations[0].priorDays +
+    let confirms = "";
+    order.orderConfirmations.forEach(
+      oc => {
+        if (oc.confirmed)
+          confirms += oc.priorDays + ",";
+      }
+    );
+    if(confirms.length > 0)
+      confirms = confirms.slice(0, -1); // -1 means strLength-1. Extraction stops right before endIndex
+    return "Confirmed " + confirms +
       (order.orderConfirmations[0].priorDays > 1 ? " days" : " day") + " prior";
 
   };
@@ -226,9 +241,11 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
       this.users.forEach(u => this.userMap.set(u.guid, u));
 
-      this.olService.getAllOrders().then(ords => {
+      this.olService.getAllOrders().then((ords: Order[]) => {
 
-        console.log('# orders in return: ' + ords.length);
+        this.orders = new Set<Order>(ords);
+        // this.orders.forEach(o => {o.orderDate = new Date(o.orderDate)});
+        console.log('# orders in returnn: ' + this.orders.size);
         this.dataSource = new MatTableDataSource(ords);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

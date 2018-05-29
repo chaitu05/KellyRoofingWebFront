@@ -51,20 +51,34 @@ export class NewOrderComponent implements OnInit {
     });
 
     this.orderForm = this.fb.group({
-      purchOrderNum: [this.order.purchOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
-      salesOrderNum: [this.order.salesOrderNum, [Validators.required, Validators.pattern('[0-9]{3}[0-9]*')]],
+      purchOrderNum: [this.order.purchOrderNum, [Validators.required,
+        Validators.pattern('[0-9]{3}[0-9]*'),
+        Validators.maxLength(8)
+      ]],
+      salesOrderNum: [this.order.salesOrderNum,
+        [
+          Validators.required,
+          Validators.pattern('[0-9]{3}[0-9]*'),
+          Validators.maxLength(8)
+        ]],
       orderDate: [this.order.orderDate, [Validators.required]],
       pickupOrDeliverDate: [this.order.pickupOrDeliverDate, [Validators.required]],
       userId: [this.order.userId, [Validators.required]],
-      jobName: [this.order.jobName, [Validators.required, Validators.minLength(3)]],
+      jobName: [this.order.jobName, [Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(60),
+      ]],
       materialType: [this.order.materialType, [Validators.required]],
       orderType: [this.order.orderType, [Validators.required]],
-      city: [this.order.city, [Validators.required, Validators.minLength(3)]],
-      productType: [this.order.productType, []],
-      addressLine: [this.order.addressLine, []],
+      city: [this.order.city, [Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
+      ]],
+      productType: [this.order.productType, [Validators.maxLength(60)]],
+      addressLine: [this.order.addressLine, [Validators.maxLength(80)]],
       addrState: [this.order.addrState, [Validators.required]],
-      isPickedOrShipped: [this.order.isPickedOrShipped, []],
-      note: [this.order.note, []],
+      pickedOrDelivered: [this.order.pickedOrDelivered, []],
+      note: [this.order.note, [Validators.maxLength(150)]],
       orderConfirmation4DaysPrior: [this.confirmation4DaysPrior, []],
       orderConfirmation2DaysPrior: [this.confirmation2DaysPrior, []],
       orderConfirmation1DayPrior: [this.confirmation1DayPrior, []],
@@ -87,14 +101,12 @@ export class NewOrderComponent implements OnInit {
     this.updateOrderConfirmations(modifiedOrder);
     console.log('Modified order: ' + JSON.stringify(modifiedOrder));
 
-    // TODO: Save data to repo
     this.ordersService.saveOrder(modifiedOrder)
       .then(o => {
         this.matDialogRef.close(o);
       })
       .catch(err => {
-        // TODO: send error back to dialog opener
-        this.matDialogRef.close(new Order());
+        // TODO: Show error on Dialog component error box.
       });
 
     // TODO: Show Snackbar Message
@@ -145,7 +157,28 @@ export class NewOrderComponent implements OnInit {
 
     let oc: OrderConfirmation;
 
-    if (o.orderConfirmations && o.orderConfirmations.length > 0)
+    if (modifiedOrder.orderConfirmations && modifiedOrder.orderConfirmations.length > 0)
+      oc = modifiedOrder.orderConfirmations.find((ocElement) => ocElement.priorDays === days);
+
+    if (oc && oc.confirmed !== confirmationDaysPrior) {
+
+      oc.confirmed = confirmationDaysPrior;
+      oc.confirmedAt = new Date();
+      oc.priorDays = days;
+      // modifiedOrder.orderConfirmations.push(oc);
+
+    }
+    else if (!oc && confirmationDaysPrior) {
+
+      oc = new OrderConfirmation();
+      oc.confirmed = confirmationDaysPrior;
+      oc.confirmedAt = new Date();
+      oc.priorDays = days;
+      modifiedOrder.orderConfirmations.push(oc);
+
+    }
+
+    /*if (o.orderConfirmations && o.orderConfirmations.length > 0)
       oc = o.orderConfirmations.find((ocElement) => ocElement.priorDays === days);
 
     if (oc && oc.confirmed !== confirmationDaysPrior) {
@@ -164,7 +197,7 @@ export class NewOrderComponent implements OnInit {
       oc.priorDays = days;
       modifiedOrder.orderConfirmations.push(oc);
 
-    }
+    }*/
 
   }
 

@@ -19,7 +19,7 @@ export class Order {
   addrState: string;
   orderPlaced: boolean = true;
   orderConfirmations: OrderConfirmation[] = [];
-  isPickedOrShipped: boolean;
+  pickedOrDelivered: boolean;
   note?: string;
 
   // orderStatus: string; // ordered, confirmed 4 days prior, confirmed 1 day prior, shipped
@@ -28,7 +28,7 @@ export class Order {
 
   /*public orderStatus():string {
 
-      if (this.isPickedOrShipped)
+      if (this.pickedOrDelivered)
           return "Shipped";
       else if (!this.orderPlaced)
           return "Not-Ordered";
@@ -53,7 +53,7 @@ export class Order {
     + "\nCity = " + this.city
     + "\nOrder Placed = " + this.orderPlaced
     + "\nOrder Confirmations = " + this.orderConfirmations
-    + "\nOrder Completed = " + this.isPickedOrShipped
+    + "\nOrder Completed = " + this.pickedOrDelivered
     + "\nNote = " + this.note
       })`
   }

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
 import {NewOrderComponent} from "./orders/new-order.component";
 import {Order} from "./orders/order";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent {
    * Constructor with needed dependencies
    * @param {MatDialog} matDialog MatDialog service is used to open NewOrderComponent as a Dialog
    */
-  constructor(private matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog, private router: Router) {
   }
 
   /**
@@ -33,7 +34,17 @@ export class AppComponent {
     // o.city = "Dhone";
     mdc.data = o;
 
-    let newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
+    const newOrderDialogRef = this.matDialog.open(NewOrderComponent, mdc);
+
+    newOrderDialogRef.afterClosed().subscribe(
+      ord => {
+        console.log('AppComponent: Saved order: ' + ord);
+        this.router.navigate(['orders']);
+      },
+      err => {
+        console.error('AppComponent: Error while creating/editing an order: ' + o, err);
+      }
+    );
 
   }
 }
