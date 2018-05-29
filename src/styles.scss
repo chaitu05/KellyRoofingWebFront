@@ -61,8 +61,11 @@ $kr-app-theme: mat-light-theme($kr-app-primary, $kr-app-accent, $kr-app-warn);
 }
 
 .kr-error {
+  margin-top: 10px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   text-align: center;
   font-size: 17px;
 }
+
 
 

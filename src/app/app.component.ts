@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material";
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatSnackBarRef, SimpleSnackBar} from "@angular/material";
 import {NewOrderComponent} from "./orders/new-order.component";
 import {Order} from "./orders/order";
 import {Router} from "@angular/router";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ export class AppComponent {
    * Constructor with needed dependencies
    * @param {MatDialog} matDialog MatDialog service is used to open NewOrderComponent as a Dialog
    */
-  constructor(private matDialog: MatDialog, private router: Router) {
+  constructor(private matDialog: MatDialog, private router: Router, private snackBar: MatSnackBar) {
   }
 
   /**
@@ -39,6 +40,7 @@ export class AppComponent {
     newOrderDialogRef.afterClosed().subscribe(
       ord => {
         console.log('AppComponent: Saved order: ' + ord);
+        this.openSnackBar("Order Created successfully.");
         this.router.navigate(['orders']);
       },
       err => {
@@ -46,5 +48,12 @@ export class AppComponent {
       }
     );
 
+  }
+
+
+  private openSnackBar(message: string, action?: string): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, {
+      duration: environment.snackbarMessageTime
+    });
   }
 }

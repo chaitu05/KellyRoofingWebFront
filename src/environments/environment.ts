@@ -34,4 +34,6 @@ export const environment = {
   backendOrderApiGetAllOrdersDateRange: "getAllOrdersDateRange",
   backendOrderApiUpdatePickDeliverDate: "updatePickDeliverDate",
 
+  snackbarMessageTime: 5000,
+
 };

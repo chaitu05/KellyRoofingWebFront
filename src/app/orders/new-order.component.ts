@@ -26,6 +26,7 @@ export class NewOrderComponent implements OnInit {
   confirmation4DaysPrior: boolean = false;
   confirmation2DaysPrior: boolean = false;
   confirmation1DayPrior: boolean = false;
+  errorMessage: string;
 
   constructor(private matDialogRef: MatDialogRef<NewOrderComponent>, private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) order: Order,
@@ -106,10 +107,8 @@ export class NewOrderComponent implements OnInit {
         this.matDialogRef.close(o);
       })
       .catch(err => {
-        // TODO: Show error on Dialog component error box.
+        this.errorMessage = 'Error occurred while Create/Edit of Order: ' + err;
       });
-
-    // TODO: Show Snackbar Message
 
   }
 

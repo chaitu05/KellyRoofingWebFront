@@ -4,6 +4,10 @@
 
   <mat-dialog-content>
 
+    <div *ngIf="errorMessage" class="kr-error mat-error">
+      {{errorMessage}}
+    </div>
+
     <mat-form-field>
       <input matInput formControlName="purchOrderNum" type="number" placeholder="Purchase order number *"/>
       <mat-error *ngIf="orderForm.get('purchOrderNum').invalid">Please enter a number with at least 3 digits.

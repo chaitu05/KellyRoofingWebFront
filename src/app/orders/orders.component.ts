@@ -143,7 +143,15 @@ export class ExampleHttpDao {
 }*/
 
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+  MatPaginator,
+  MatSnackBar, MatSnackBarRef,
+  MatSort,
+  MatTableDataSource, SimpleSnackBar
+} from "@angular/material";
 import {Order} from "./order";
 import {OrdersService} from "./orders.service";
 import {OrderType} from "./order-type";
@@ -166,6 +174,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   users: Set<User>;
   orders: Set<Order>;
   userMap: Map<string, User> = new Map<string, User>();
+  errorMessage: string;
   // newOrderDialogRef: MatDialogRef;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -174,7 +183,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   constructor(private olService: OrdersService,
               private uService: UserService,
-              private matDialog: MatDialog) {
+              private matDialog: MatDialog,
+              private snackBar: MatSnackBar) {
   }
 
   openEditOrderDialog(o: Order): void {
@@ -192,10 +202,14 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     newOrderDialogRef.afterClosed().subscribe(
       ord => {
         console.log('Saved order: ' + ord);
-        // find order in this.orders and replace it with saved order.
+        if (ord) {
+          // find order in this.orders and replace it with saved order.
+          this.openSnackBar("Order updated successfully.");
+        }
       },
       err => {
         console.error('Error while creating/editing an order: ' + o, err);
+        this.errorMessage = 'Orders.component: Error occurred while closing of Dialog Order: ' + err;
       }
     );
 
@@ -219,12 +233,18 @@ export class OrdersComponent implements OnInit, AfterViewInit {
           confirms += oc.priorDays + ",";
       }
     );
-    if(confirms.length > 0)
+    if (confirms.length > 0)
       confirms = confirms.slice(0, -1); // -1 means strLength-1. Extraction stops right before endIndex
     return "Confirmed " + confirms +
       (order.orderConfirmations[0].priorDays > 1 ? " days" : " day") + " prior";
 
   };
+
+  private openSnackBar(message: string, action?: string): MatSnackBarRef<SimpleSnackBar> {
+    return this.snackBar.open(message, action, {
+      duration: environment.snackbarMessageTime
+    });
+  }
 
   ngOnInit() {
   }
@@ -235,24 +255,32 @@ export class OrdersComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
 
-    this.uService.getAllUsers().then(users => {
+    this.uService.getAllUsers()
+      .then(users => {
 
-      this.users = users;
+        this.users = users;
 
-      this.users.forEach(u => this.userMap.set(u.guid, u));
+        this.users.forEach(u => this.userMap.set(u.guid, u));
 
-      this.olService.getAllOrders().then((ords: Order[]) => {
+        this.olService.getAllOrders()
+          .then((ords: Order[]) => {
 
-        this.orders = new Set<Order>(ords);
-        // this.orders.forEach(o => {o.orderDate = new Date(o.orderDate)});
-        console.log('# orders in returnn: ' + this.orders.size);
-        this.dataSource = new MatTableDataSource(ords);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+            this.orders = new Set<Order>(ords);
+            // this.orders.forEach(o => {o.orderDate = new Date(o.orderDate)});
+            console.log('# orders in returnn: ' + this.orders.size);
+            this.dataSource = new MatTableDataSource(ords);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
 
+          })
+          .catch(err => {
+            this.errorMessage = 'Orders.component: Error occurred while getting all orders: ' + err;
+          });
+
+      })
+      .catch(err => {
+        this.errorMessage = 'Orders.component: Error occurred while getting all users: ' + err;
       });
-
-    });
 
   }
 

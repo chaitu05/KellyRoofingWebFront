@@ -75,6 +75,11 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>-->
 
+
+<div *ngIf="errorMessage" class="kr-error mat-error">
+  {{errorMessage}}
+</div>
+
 <div class="example-header">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
