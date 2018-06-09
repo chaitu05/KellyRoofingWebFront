@@ -4,6 +4,7 @@ import {NewOrderComponent} from "./orders/new-order.component";
 import {Order} from "./orders/order";
 import {Router} from "@angular/router";
 import {environment} from "../environments/environment";
+import {Utilz} from "./utilz";
 
 @Component({
   selector: 'app-root',
@@ -40,8 +41,11 @@ export class AppComponent {
     newOrderDialogRef.afterClosed().subscribe(
       ord => {
         console.log('AppComponent: Saved order: ' + ord);
+
         this.openSnackBar("Order Created successfully.");
-        this.router.navigate(['orders']);
+        // Reason to send "RandomId" as a parameter is to trigger the reload of "orders" component on "NewOrder" addition.
+        // Angular wont load the same page unless there is a change in parameters.
+        this.router.navigate(['orders', Utilz.getRandomId()]);
       },
       err => {
         console.error('AppComponent: Error while creating/editing an order: ' + o, err);

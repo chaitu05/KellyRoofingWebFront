@@ -37,7 +37,7 @@ export class OrdersService {
       httpOptions).toPromise()
       .then(os => {
 
-        console.log('service orders: ' + this.orders.length);
+        console.log('service orders: ' + os.length);
         return Promise.resolve(os);
 
       })

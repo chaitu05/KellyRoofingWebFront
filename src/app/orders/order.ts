@@ -5,6 +5,7 @@ import {OrderType} from "./order-type";
 
 export class Order {
 
+  guid: string;
   purchOrderNum: number;
   salesOrderNum: number;
   userId: string;
@@ -43,6 +44,7 @@ export class Order {
   public toString = () => {
     return `Order = (${
     "\nPurchase order number = " + this.purchOrderNum
+    + "\nGUID = " + this.guid
     + "\nUserID = " + this.userId
     + "\nJob name = " + this.jobName
     + "\nMaterial type = " + this.materialType

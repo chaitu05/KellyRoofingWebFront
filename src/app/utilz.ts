@@ -24,4 +24,19 @@ export class Utilz {
   };
 
   static usStateVals: string[] = Object.values((UsStates));
+
+  static alphaAndNumbers: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  /**
+   * Generates a 5 character random string
+   * @returns {string}
+   */
+  static getRandomId(): string {
+    let text = "";
+
+    for (let i = 0; i < 5; i++)
+      text += this.alphaAndNumbers.charAt(Math.floor(Math.random() * this.alphaAndNumbers.length));
+
+    return text;
+  }
 }

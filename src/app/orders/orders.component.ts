@@ -159,6 +159,7 @@ import {environment} from "../../environments/environment";
 import {NewOrderComponent} from "./new-order.component";
 import {UserService} from "../login/user.service";
 import {User} from "../model/user";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -172,10 +173,9 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     'pickDeliverDt', 'addrState', 'orderStatus', 'note'];
   dataSource: MatTableDataSource<Order>;
   users: Set<User>;
-  orders: Set<Order>;
+  orders: Order[] = [];
   userMap: Map<string, User> = new Map<string, User>();
   errorMessage: string;
-  // newOrderDialogRef: MatDialogRef;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -184,7 +184,11 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   constructor(private olService: OrdersService,
               private uService: UserService,
               private matDialog: MatDialog,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private route: ActivatedRoute) {
+    // Reason for "mysticId" usage as a parameter is to trigger the reload of "orders" component on "NewOrder" addition.
+    // Angular wont load the same page unless there is a change in parameters.
+    console.log('param: ' + this.route.snapshot.paramMap.get('mysticId'));
   }
 
   openEditOrderDialog(o: Order): void {
@@ -204,6 +208,8 @@ export class OrdersComponent implements OnInit, AfterViewInit {
         console.log('Saved order: ' + ord);
         if (ord) {
           // find order in this.orders and replace it with saved order.
+          this.updateOrderInList(ord);
+          this.dataSource = new MatTableDataSource<Order>(this.orders);
           this.openSnackBar("Order updated successfully.");
         }
       },
@@ -262,26 +268,29 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
         this.users.forEach(u => this.userMap.set(u.guid, u));
 
-        this.olService.getAllOrders()
-          .then((ords: Order[]) => {
-
-            this.orders = new Set<Order>(ords);
-            // this.orders.forEach(o => {o.orderDate = new Date(o.orderDate)});
-            console.log('# orders in returnn: ' + this.orders.size);
-            this.dataSource = new MatTableDataSource(ords);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
-
-          })
-          .catch(err => {
-            this.errorMessage = 'Orders.component: Error occurred while getting all orders: ' + err;
-          });
+        this.getOrders();
 
       })
       .catch(err => {
         this.errorMessage = 'Orders.component: Error occurred while getting all users: ' + err;
       });
 
+  }
+
+  private getOrders() {
+    this.olService.getAllOrders()
+      .then((ords: Order[]) => {
+
+        this.orders = ords;
+        console.log('# orders in return: ' + this.orders.length);
+        this.dataSource = new MatTableDataSource(this.orders);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
+      })
+      .catch(err => {
+        this.errorMessage = 'Orders.component: Error occurred while getting all orders: ' + err;
+      });
   }
 
   getContractorName(userGuid: string): string {
@@ -298,4 +307,9 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
+
+  private updateOrderInList(order: Order) {
+    let index = this.orders.findIndex((o) => o.guid === order.guid);
+    this.orders.splice(index, 1, order); // Replaces 1 element at the index
+  }
 }
