@@ -16,13 +16,16 @@
 
 .mat-table {
   overflow: auto;
-  max-height: 500px;
+  //max-height: 500px;
 }
 
 .mat-cell {
   margin: 0px 4px 0px 0px;
 }
 
+.mat-row {
+  padding: 4px;
+}
 
 mat-row:nth-child(even){
   background-color: lighten(lightblue, 10%);

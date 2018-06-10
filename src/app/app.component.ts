@@ -40,12 +40,14 @@ export class AppComponent {
 
     newOrderDialogRef.afterClosed().subscribe(
       ord => {
-        console.log('AppComponent: Saved order: ' + ord);
+        if(ord) { // no need to execute following code if new-order dialog is closed without creating a order.
+          console.log('AppComponent: Saved order: ' + ord);
 
-        this.openSnackBar("Order Created successfully.");
-        // Reason to send "RandomId" as a parameter is to trigger the reload of "orders" component on "NewOrder" addition.
-        // Angular wont load the same page unless there is a change in parameters.
-        this.router.navigate(['orders', Utilz.getRandomId()]);
+          this.openSnackBar("Order Created successfully.");
+          // Reason to send "RandomId" as a parameter is to trigger the reload of "orders" component on "NewOrder" addition.
+          // Angular wont load the same page unless there is a change in parameters.
+          this.router.navigate(['orders', Utilz.getRandomId()]);
+        }
       },
       err => {
         console.error('AppComponent: Error while creating/editing an order: ' + o, err);

@@ -88,7 +88,7 @@
 
 <div class="example-container mat-elevation-z8">
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="purchaseOrderNum">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Purchase Ord#</mat-header-cell>
@@ -144,10 +144,9 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;">
     </mat-row>
-  </mat-table>
+  </table>
 
-  <mat-paginator [pageSizeOptions]="[8, 15, 25, 50]"></mat-paginator>
-  <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 50]"></mat-paginator>-->
+  <mat-paginator [pageSizeOptions]="[10, 8, 15, 25, 50]"></mat-paginator>
 
 </div>
 
