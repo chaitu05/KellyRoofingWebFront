@@ -7,6 +7,7 @@ import {User} from "../model/user";
 import {Utilz} from "../utilz";
 import {environment} from "../../environments/environment";
 import {tap} from "rxjs/internal/operators";
+import {formatDate} from "@angular/common";
 
 @Injectable()
 export class OrdersService {
@@ -34,6 +35,40 @@ export class OrdersService {
     return this.httpClient.get<Order[]>(Utilz.getUrl(environment.backendApiAccessProtocol,
       environment.backendServerName, environment.backendServerPort,
       Array.of(environment.backendOrderApiUrl, environment.backendOrderApiGetAllOrders)),
+      httpOptions).toPromise()
+      .then(os => {
+
+        console.log('service orders: ' + os.length);
+        return Promise.resolve(os);
+
+      })
+      .catch(reason => {
+
+        console.error('An error occurred while getting orders : ', reason);
+        return Promise.reject(reason.message || reason);
+
+      });
+
+  }
+
+  getOrdersInDateRange(fromDate: Date , toDate: Date) {
+
+    console.log('\nIn getOrdersInDateRange, From Date: ' + fromDate + '\nTo Date: ' + toDate);
+    // configure httpOptions with headers and params.
+    let httpOptions = Object.assign({}, Utilz.httpOptions);
+
+     // Adding Parameters
+    let params: HttpParams = new HttpParams();
+    params = params.set('from', (fromDate.getMonth()+1) + '/' + fromDate.getDate() + '/' + fromDate.getFullYear());
+    params = params.set('to', (toDate.getMonth()+1) + '/' + toDate.getDate() + '/' + toDate.getFullYear());
+    params = params.set('from', '06/12/2018');
+    params = params.set('to', '06/26/2018');
+    httpOptions["params"] = params;
+    console.log('http options: ' + httpOptions);
+
+    return this.httpClient.get<Order[]>(Utilz.getUrl(environment.backendApiAccessProtocol,
+      environment.backendServerName, environment.backendServerPort,
+      Array.of(environment.backendOrderApiUrl, environment.backendOrderApiGetAllOrdersDateRange)),
       httpOptions).toPromise()
       .then(os => {
 

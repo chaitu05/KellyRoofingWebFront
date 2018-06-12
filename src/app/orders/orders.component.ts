@@ -198,6 +198,31 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     console.log('param: ' + this.route.snapshot.paramMap.get('mysticId'));
   }
 
+  ngOnInit() {
+  }
+
+  /**
+   * Set the paginator and sort after the view init since this component will
+   * be able to query its view for the initialized paginator and sort.
+   */
+  ngAfterViewInit() {
+
+    this.uService.getAllUsers()
+      .then(users => {
+
+        this.users = users;
+
+        this.users.forEach(u => this.userMap.set(u.guid, u));
+
+        this.getOrders();
+
+      })
+      .catch(err => {
+        this.errorMessage = 'Orders.component: Error occurred while getting all users: ' + err;
+      });
+
+  }
+
   openEditOrderDialog(o: Order): void {
 
     // TODO: Move dialog configuration out of here into a generic place.
@@ -257,19 +282,30 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     console.log('\nFrom: ' + this.fromDate.value + '\nTo: ' + this.toDate.value);
     if (this.fromDate.value && this.toDate.value) {
       console.log('both values chosen');
-      // Filter datasource and refresh the table.
-      let filtered: Order[] = this.orders.filter((o) => {
+      /*let filtered: Order[] = this.orders.filter((o) => {
         return o.pickupOrDeliverDate >= (new Date(this.fromDate.value))
           && o.pickupOrDeliverDate <= (new Date(this.toDate.value));
-      });
+      });*/
+      this.olService.getOrdersInDateRange(new Date(this.fromDate.value), new Date(this.toDate.value))
+        .then((ords: Order[]) => {
 
-      this.dataSource = new MatTableDataSource(filtered);
-      this.applyFilter(this.filterTextValue);
+          this.orders = ords;
+          this.populateContractorNameInOrders();
+          console.log('# orders in return: ' + this.orders.length);
+          this.dataSource = new MatTableDataSource(this.orders);
+          this.applyFilter(this.filterTextValue);
+
+        })
+        .catch(err => {
+          this.errorMessage = 'Orders.component: Error occurred while getting orders in date range: ' + err;
+        });
+
     }
     else {
       // Clear the date filter on datasource and refresh the table.
-      this.dataSource = new MatTableDataSource(this.orders);
-      this.applyFilter(this.filterTextValue);
+      /*this.dataSource = new MatTableDataSource(this.orders);
+      this.applyFilter(this.filterTextValue);*/
+      this.getOrders();
     }
   }
 
@@ -279,30 +315,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {
-  }
-
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
-  ngAfterViewInit() {
-
-    this.uService.getAllUsers()
-      .then(users => {
-
-        this.users = users;
-
-        this.users.forEach(u => this.userMap.set(u.guid, u));
-
-        this.getOrders();
-
-      })
-      .catch(err => {
-        this.errorMessage = 'Orders.component: Error occurred while getting all users: ' + err;
-      });
-
-  }
 
   private getOrders() {
     this.olService.getAllOrders()
@@ -314,6 +326,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource(this.orders);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.applyFilter(this.filterTextValue);
 
       })
       .catch(err => {
@@ -337,10 +350,12 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filterValue: string) {
-    this.filterTextValue = filterValue;
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    if (filterValue) {
+      this.filterTextValue = filterValue;
+      filterValue = filterValue.trim(); // Remove whitespace
+      filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+      this.dataSource.filter = filterValue;
+    }
   }
 
 
