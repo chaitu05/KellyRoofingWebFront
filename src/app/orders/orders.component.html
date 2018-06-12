@@ -129,9 +129,14 @@
       <mat-cell *matCellDef="let row"> {{row.orderType}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Contractor">
+    <!--<ng-container matColumnDef="Contractor">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Contractor</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{getContractorName(row.userId)}}</mat-cell>
+    </ng-container>-->
+
+    <ng-container matColumnDef="Contractor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Contractor</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.contractorName}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="pickDeliverDt">

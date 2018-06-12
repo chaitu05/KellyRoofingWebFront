@@ -9,6 +9,7 @@ export class Order {
   purchOrderNum: number;
   salesOrderNum: number;
   userId: string;
+  contractorName: string;
   jobName: string;
   materialType: MaterialType; // (insulation, membrane, metal, Skylites)
   productType: string;
@@ -46,6 +47,7 @@ export class Order {
     "\nPurchase order number = " + this.purchOrderNum
     + "\nGUID = " + this.guid
     + "\nUserID = " + this.userId
+    + "\nContractorName = " + this.contractorName
     + "\nJob name = " + this.jobName
     + "\nMaterial type = " + this.materialType
     + "\nOrder type = " + this.orderType

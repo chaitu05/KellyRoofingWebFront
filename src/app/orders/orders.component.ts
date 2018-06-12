@@ -309,6 +309,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
       .then((ords: Order[]) => {
 
         this.orders = ords;
+        this.populateContractorNameInOrders();
         console.log('# orders in return: ' + this.orders.length);
         this.dataSource = new MatTableDataSource(this.orders);
         this.dataSource.paginator = this.paginator;
@@ -318,6 +319,13 @@ export class OrdersComponent implements OnInit, AfterViewInit {
       .catch(err => {
         this.errorMessage = 'Orders.component: Error occurred while getting all orders: ' + err;
       });
+  }
+
+  private populateContractorNameInOrders() {
+    this.orders = this.orders.map((o) => {
+      o.contractorName = this.getContractorName(o.userId);
+      return o;
+    });
   }
 
   getContractorName(userGuid: string): string {
