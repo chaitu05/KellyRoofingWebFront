@@ -80,9 +80,23 @@
   {{errorMessage}}
 </div>
 
-<div class="example-header">
-  <mat-form-field>
+<div class="example-header filter_flex_box">
+  <mat-form-field class="mat_form_field_filter">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <mat-form-field class="mat_form_field_filter">
+    <input matInput [matDatepicker]="pdFromDate" placeholder="Pick/Deliver Dt From"
+           [formControl]="fromDate" (dateChange)="dateRangeUpdate()">
+    <mat-datepicker-toggle matSuffix [for]="pdFromDate"></mat-datepicker-toggle>
+    <mat-datepicker #pdFromDate></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="mat_form_field_filter">
+    <input matInput [matDatepicker]="pdToDate" placeholder="Pick/Deliver Dt To"
+           (dateChange)="dateRangeUpdate()" [formControl]="toDate">
+    <mat-datepicker-toggle matSuffix [for]="pdToDate"></mat-datepicker-toggle>
+    <mat-datepicker #pdToDate></mat-datepicker>
   </mat-form-field>
 </div>
 

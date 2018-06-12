@@ -144,6 +144,7 @@ export class ExampleHttpDao {
 
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {
+  MatDatepickerInputEvent,
   MatDialog,
   MatDialogConfig,
   MatDialogRef,
@@ -160,6 +161,8 @@ import {NewOrderComponent} from "./new-order.component";
 import {UserService} from "../login/user.service";
 import {User} from "../model/user";
 import {ActivatedRoute} from "@angular/router";
+import {FormControl} from "@angular/forms";
+import {filter} from "rxjs/internal/operators";
 
 
 @Component({
@@ -176,6 +179,10 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   orders: Order[] = [];
   userMap: Map<string, User> = new Map<string, User>();
   errorMessage: string;
+  // for pickupOrDeliverydate dateRange filter
+  fromDate = new FormControl();
+  toDate = new FormControl();
+  filterTextValue: string = "";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -246,6 +253,26 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   };
 
+  dateRangeUpdate() {
+    console.log('\nFrom: ' + this.fromDate.value + '\nTo: ' + this.toDate.value);
+    if (this.fromDate.value && this.toDate.value) {
+      console.log('both values chosen');
+      // Filter datasource and refresh the table.
+      let filtered: Order[] = this.orders.filter((o) => {
+        return o.pickupOrDeliverDate >= (new Date(this.fromDate.value))
+          && o.pickupOrDeliverDate <= (new Date(this.toDate.value));
+      });
+
+      this.dataSource = new MatTableDataSource(filtered);
+      this.applyFilter(this.filterTextValue);
+    }
+    else {
+      // Clear the date filter on datasource and refresh the table.
+      this.dataSource = new MatTableDataSource(this.orders);
+      this.applyFilter(this.filterTextValue);
+    }
+  }
+
   private openSnackBar(message: string, action?: string): MatSnackBarRef<SimpleSnackBar> {
     return this.snackBar.open(message, action, {
       duration: environment.snackbarMessageTime
@@ -302,6 +329,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(filterValue: string) {
+    this.filterTextValue = filterValue;
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;

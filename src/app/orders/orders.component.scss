@@ -9,9 +9,27 @@
   padding: 8px 24px 0;
 }
 
+.filter_flex_box {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.filter_search_text {
+  flex-grow: 2;
+}
+
+.filter_search_dates {
+  flex-grow: 1;
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+
+.mat_form_field_filter {
+  width: auto;
 }
 
 .mat-table {
