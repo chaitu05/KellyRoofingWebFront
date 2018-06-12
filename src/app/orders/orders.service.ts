@@ -61,8 +61,6 @@ export class OrdersService {
     let params: HttpParams = new HttpParams();
     params = params.set('from', (fromDate.getMonth()+1) + '/' + fromDate.getDate() + '/' + fromDate.getFullYear());
     params = params.set('to', (toDate.getMonth()+1) + '/' + toDate.getDate() + '/' + toDate.getFullYear());
-    params = params.set('from', '06/12/2018');
-    params = params.set('to', '06/26/2018');
     httpOptions["params"] = params;
     console.log('http options: ' + httpOptions);
 
