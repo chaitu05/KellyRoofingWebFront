@@ -8,6 +8,7 @@
 # dependencies
 /node_modules
 /bower_components
+/ApacheServerDirectory
 
 # platform specific files
 /platforms
